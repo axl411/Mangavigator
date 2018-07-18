@@ -9,11 +9,25 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    
+    private let collectionView: NSCollectionView = {
+        let collectionView = NSCollectionView()
+        return collectionView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        view.layer?.backgroundColor = NSColor.yellow.cgColor
+        
+        view.addSubview(collectionView)
+        collectionView.addConstraints(
+            [
+                collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                // TODO: experiment with NSCollectionView
+                // TODO: learn auto layout
+            ]
+        )
     }
 
     override var representedObject: Any? {
