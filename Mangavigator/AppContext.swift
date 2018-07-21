@@ -10,7 +10,7 @@ import Cocoa
 
 struct AppContext {
     let mainWindow: NSWindow
-    
+
     init(mainWindow: NSWindow) {
         mainWindow.titleVisibility = NSWindow.TitleVisibility.hidden
         mainWindow.titlebarAppearsTransparent = true
