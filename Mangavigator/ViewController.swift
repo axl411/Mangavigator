@@ -11,5 +11,6 @@ import Cocoa
 class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        // TODO: create a document based app and see how code works
     }
 }
