@@ -19,5 +19,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
-// TODO: investigate a frame, left side bar is navigator, right area is content, open document in new tab
+// TODO: investigate a frame, left side bar is navigator, right area is content, open document in new tab. Think about a prototype first
 // TODO: I don't want to open a new temp document when launch app. Should open a root view with no document status
