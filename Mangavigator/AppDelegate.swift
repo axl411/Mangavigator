@@ -11,10 +11,13 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_: Notification) {
-        let appContext = AppContext(mainWindow: NSApp.mainWindow!)
+//        let appContext = AppContext(mainWindow: NSApp.mainWindow!)
     }
 
     func applicationWillTerminate(_: Notification) {
         // Insert code here to tear down your application
     }
 }
+
+// TODO: investigate a frame, left side bar is navigator, right area is content, open document in new tab
+// TODO: I don't want to open a new temp document when launch app. Should open a root view with no document status

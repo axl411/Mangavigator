@@ -16,6 +16,7 @@
 		97874A2C2103A25300DACCE8 /* BookShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97874A2B2103A25300DACCE8 /* BookShelfViewController.swift */; };
 		97874A2E2103A79300DACCE8 /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97874A2D2103A79300DACCE8 /* BookItem.swift */; };
 		97874A302103A87500DACCE8 /* BookShelfDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97874A2F2103A87500DACCE8 /* BookShelfDataSource.swift */; };
+		97C99A202106145A00DA0D48 /* BookZipDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C99A1F2106145A00DA0D48 /* BookZipDocument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		97874A2B2103A25300DACCE8 /* BookShelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewController.swift; sourceTree = "<group>"; };
 		97874A2D2103A79300DACCE8 /* BookItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
 		97874A2F2103A87500DACCE8 /* BookShelfDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfDataSource.swift; sourceTree = "<group>"; };
+		97C99A1F2106145A00DA0D48 /* BookZipDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookZipDocument.swift; sourceTree = "<group>"; };
 		BD276D5D996120E3EDAC834F /* Pods-Mangavigator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mangavigator.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mangavigator/Pods-Mangavigator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 				97874A2B2103A25300DACCE8 /* BookShelfViewController.swift */,
 				97874A2D2103A79300DACCE8 /* BookItem.swift */,
 				97874A2F2103A87500DACCE8 /* BookShelfDataSource.swift */,
+				97C99A1F2106145A00DA0D48 /* BookZipDocument.swift */,
 			);
 			path = BookShelf;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97C99A202106145A00DA0D48 /* BookZipDocument.swift in Sources */,
 				97874A2C2103A25300DACCE8 /* BookShelfViewController.swift in Sources */,
 				97874A2E2103A79300DACCE8 /* BookItem.swift in Sources */,
 				97405E9520FE2767008DF546 /* ViewController.swift in Sources */,
