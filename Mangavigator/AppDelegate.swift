@@ -19,5 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
-// TODO: investigate a frame, left side bar is navigator, right area is content, open document in new tab. Think about a prototype first
-// TODO: I don't want to open a new temp document when launch app. Should open a root view with no document status
+// TODO: 1. MangePage, open in new tab
+// TODO:     Tabbed Window, in https://developer.apple.com/videos/play/wwdc2016/239/?time=440
+// TODO:     downloaded WWDC sessions
+// TODO: 2. add a navigation side bar to MangaPage
