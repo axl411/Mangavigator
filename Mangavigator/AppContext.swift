@@ -12,10 +12,6 @@ struct AppContext {
     let mainWindow: NSWindow
 
     init(mainWindow: NSWindow) {
-        mainWindow.titleVisibility = NSWindow.TitleVisibility.hidden
-        mainWindow.titlebarAppearsTransparent = true
-        mainWindow.styleMask = [NSWindow.StyleMask.fullSizeContentView, mainWindow.styleMask]
-        mainWindow.setFrame(NSScreen.main!.frame.insetBy(dx: 100, dy: 100), display: true)
         self.mainWindow = mainWindow
     }
 }

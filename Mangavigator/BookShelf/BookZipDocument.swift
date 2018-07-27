@@ -22,8 +22,14 @@ class BookZipDocument: NSDocument {
     override func makeWindowControllers() {
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("BookWindowViewController")) as! NSWindowController
-        self.addWindowController(windowController)
+        guard let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("BookWindowViewController")) as? NSWindowController,
+            let newWindow = windowController.window
+        else { return }
+        newWindow.titleVisibility = NSWindow.TitleVisibility.hidden
+        newWindow.titlebarAppearsTransparent = true
+        newWindow.styleMask = [NSWindow.StyleMask.fullSizeContentView, newWindow.styleMask]
+        newWindow.setFrame(NSScreen.main!.frame.insetBy(dx: 100, dy: 100), display: true)
+        addWindowController(windowController)
     }
 
     override func read(from url: URL, ofType typeName: String) throws {

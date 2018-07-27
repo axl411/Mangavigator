@@ -13,7 +13,10 @@ final class BookShelfViewController: NSViewController {
     private let scrollView = NSScrollView(frame: .zero)
     private let collectionView: NSCollectionView = {
         let collectionView = NSCollectionView(frame: NSRect.zero)
-        // CocoaPitfalls: setting collectionViewLayout needs to be before registering a Item class or else an exception of '-[NSNib _initWithNibNamed:bundle:options:] could not load the nibName: BookItem in bundle ...' will be thrown when the DataSource is trying to make an item.
+        // CocoaPitfalls: setting collectionViewLayout needs to be before registering an
+        // Item class or else an exception of '-[NSNib _initWithNibNamed:bundle:options:]
+        // could not load the nibName: BookItem in bundle ...' will be thrown when the
+        // DataSource is trying to make an item.
         collectionView.collectionViewLayout = NSCollectionViewFlowLayout()
         collectionView.register(BookItem.self, forItemWithIdentifier: BookItem.identifier)
         return collectionView

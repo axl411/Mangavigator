@@ -14,7 +14,7 @@
 			<key>CFBundleTypeName</key>
 			<string>ZipDoc</string>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>Viewer</string>
 			<key>NSDocumentClass</key>
 			<string>$(PRODUCT_MODULE_NAME).BookZipDocument</string>
 		</dict>
