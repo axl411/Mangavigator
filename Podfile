@@ -1,4 +1,4 @@
 target 'Mangavigator' do
-	pod 'SwiftLint', :git => 'https://github.com/realm/SwiftLint.git'
+	pod 'SwiftLint', '0.25.1'
 	pod 'SwiftFormat/CLI'
 end
