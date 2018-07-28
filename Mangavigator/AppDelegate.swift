@@ -20,5 +20,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
 }
-
-// TODO: add a navigation side bar to MangaPage

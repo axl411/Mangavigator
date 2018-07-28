@@ -84,7 +84,7 @@
 			children = (
 				97405E9220FE2767008DF546 /* AppDelegate.swift */,
 				97405E9420FE2767008DF546 /* ViewController.swift */,
-				97790300210C4D1C009458F8 /* Books */,
+				97790300210C4D1C009458F8 /* BookDocuments */,
 				977902FD210C4CB1009458F8 /* BookContainer */,
 				97874A2A2103A22600DACCE8 /* BookShelf */,
 				97405EA220FE2988008DF546 /* AppContext.swift */,
@@ -104,12 +104,12 @@
 			path = BookContainer;
 			sourceTree = "<group>";
 		};
-		97790300210C4D1C009458F8 /* Books */ = {
+		97790300210C4D1C009458F8 /* BookDocuments */ = {
 			isa = PBXGroup;
 			children = (
 				97C99A1F2106145A00DA0D48 /* BookZipDocument.swift */,
 			);
-			path = Books;
+			path = BookDocuments;
 			sourceTree = "<group>";
 		};
 		97874A2A2103A22600DACCE8 /* BookShelf */ = {
