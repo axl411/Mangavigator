@@ -22,7 +22,9 @@ class BookZipDocument: NSDocument {
     override func makeWindowControllers() {
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        guard let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("BookWindowViewController")) as? NSWindowController,
+        guard let windowController = storyboard.instantiateController(
+            withIdentifier: NSStoryboard.SceneIdentifier("BookContainer")
+        ) as? NSWindowController,
             let newWindow = windowController.window
         else { return }
         newWindow.titleVisibility = NSWindow.TitleVisibility.hidden

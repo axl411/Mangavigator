@@ -9,7 +9,7 @@
 import Cocoa
 
 final class BookShelfViewController: NSViewController {
-    
+
     private let scrollView = NSScrollView(frame: .zero)
     private let collectionView: NSCollectionView = {
         let collectionView = NSCollectionView(frame: NSRect.zero)
@@ -23,6 +23,10 @@ final class BookShelfViewController: NSViewController {
     }()
     private let dataSource = BookShelfDataSource()
 
+    override func loadView() {
+        view = NSView()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,8 +39,8 @@ final class BookShelfViewController: NSViewController {
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
 
         collectionView.dataSource = dataSource
         collectionView.delegate = self
