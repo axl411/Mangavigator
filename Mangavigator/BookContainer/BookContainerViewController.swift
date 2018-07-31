@@ -9,7 +9,18 @@
 import Cocoa
 
 class BookContainerViewController: NSViewController {
+    private let file: URL
     private lazy var bookShelfViewController = BookShelfViewController()
+    private lazy var bookPresenterViewController = BookPresenterViewController(file: file)
+
+    init(file: URL) {
+        self.file = file
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func loadView() {
         view = NSView()
@@ -23,6 +34,9 @@ class BookContainerViewController: NSViewController {
 
         addChild(bookShelfViewController)
         view.addSubview(bookShelfViewController.view)
+
+        addChild(bookPresenterViewController)
+        view.addSubview(bookPresenterViewController.view)
     }
 
     override func viewDidLayout() {
@@ -34,5 +48,7 @@ class BookContainerViewController: NSViewController {
             width: view.frame.width * 0.3,
             height: view.frame.height
         )
+
+        bookPresenterViewController.view.frame = view.bounds
     }
 }

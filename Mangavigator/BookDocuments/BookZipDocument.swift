@@ -20,13 +20,10 @@ class BookZipDocument: NSDocument {
     }
 
     override func makeWindowControllers() {
-        // Returns the Storyboard that contains your Document window.
-        let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        guard let windowController = storyboard.instantiateController(
-            withIdentifier: NSStoryboard.SceneIdentifier("BookContainer")
-        ) as? NSWindowController,
-            let newWindow = windowController.window
-        else { return }
+        guard let fileURL = fileURL else { return }
+        let containerViewController = BookContainerViewController(file: fileURL)
+        let newWindow = NSWindow(contentViewController: containerViewController)
+        let windowController = NSWindowController(window: newWindow)
         newWindow.titleVisibility = NSWindow.TitleVisibility.hidden
         newWindow.titlebarAppearsTransparent = true
         newWindow.styleMask = [NSWindow.StyleMask.fullSizeContentView, newWindow.styleMask]
@@ -35,7 +32,6 @@ class BookZipDocument: NSDocument {
     }
 
     override func read(from url: URL, ofType typeName: String) throws {
-        Swift.print(url)
+//        fileURL = url
     }
 }
-
