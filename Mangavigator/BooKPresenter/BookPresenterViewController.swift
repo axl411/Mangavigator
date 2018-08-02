@@ -11,6 +11,9 @@ import ZIPFoundation
 
 class BookPresenterViewController: NSViewController {
     private let file: URL
+    private let imageView = NSImageView()
+
+
     init(file: URL) {
         self.file = file
         super.init(nibName: nil, bundle: nil)
@@ -29,6 +32,8 @@ class BookPresenterViewController: NSViewController {
         view.wantsLayer = true
         view.layer?.backgroundColor = NSColor.cyan.cgColor
 
+        view.addSubview(imageView)
+
         guard let archive = Archive(url: file, accessMode: .read) else  {
             return
         }
@@ -39,31 +44,24 @@ class BookPresenterViewController: NSViewController {
         }
 
         do {
-            try archive.extract(firstFile!) { data in
-                let image = NSImage(data: data)!
-                let imageView = NSImageView(image: image)
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                view.addSubview(imageView)
-                NSLayoutConstraint.activate([
-                    imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                    imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-                    imageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)
-                    ])
-            }
             let path = try FileManager.default.url(
                 for: .cachesDirectory,
                 in: .userDomainMask,
                 appropriateFor: nil,
                 create: true
             ).appendingPathComponent(UUID().uuidString)
+            try? FileManager.default.removeItem(at: path)
             try archive.extract(firstFile!, to: path)
-            let image = NSImage(contentsOf: path)!
-            // TODO: design a mechanism for displaying images in zip file (thumbnails & real image & preloading)
-
+            imageView.image = NSImage(contentsOf: path)
         }
         catch {
-
+            print(error)
         }
+    }
+
+    override func viewDidLayout() {
+        super.viewDidLayout()
+
+        imageView.frame = view.bounds
     }
 }

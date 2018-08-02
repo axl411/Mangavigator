@@ -1,24 +1,28 @@
 PODS:
+  - CryptoSwift (0.10.0)
   - SwiftFormat/CLI (0.33.11)
   - SwiftLint (0.25.1)
   - ZIPFoundation (0.9.6)
 
 DEPENDENCIES:
+  - CryptoSwift
   - SwiftFormat/CLI
   - SwiftLint (= 0.25.1)
   - ZIPFoundation
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - CryptoSwift
     - SwiftFormat
     - SwiftLint
     - ZIPFoundation
 
 SPEC CHECKSUMS:
+  CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   SwiftFormat: fa1b577bb4f0cd4f8cfe70d07945aa894ef5f97a
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   ZIPFoundation: 68c35eb2637c21abe56dc60b3277636443bc1501
 
-PODFILE CHECKSUM: f0ea99f82955bfcf285d3e1c7f65b343b26c5db9
+PODFILE CHECKSUM: 05ac5d80a5dc08860a6750b72254aac8b826ffe9
 
 COCOAPODS: 1.5.3

@@ -21,6 +21,7 @@ class BookZipDocument: NSDocument {
 
     override func makeWindowControllers() {
         guard let fileURL = fileURL else { return }
+        let archive = try! Book(fileURL: fileURL)
         let containerViewController = BookContainerViewController(file: fileURL)
         let newWindow = NSWindow(contentViewController: containerViewController)
         let windowController = NSWindowController(window: newWindow)
