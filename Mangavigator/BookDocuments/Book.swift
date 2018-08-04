@@ -7,8 +7,8 @@
 //
 
 import Foundation
+import os
 import ZIPFoundation
-import CryptoSwift
 
 class Book {
     private let fileURL: URL
@@ -18,10 +18,35 @@ class Book {
         self.fileURL = fileURL
         guard let archive = Archive(url: fileURL, accessMode: .read) else { throw BookError.failedAccessingArchive }
         self.archive = archive
-        if let data = try? Data(contentsOf: fileURL) {
-            let md5 = data.md5().toHexString()
-            print(md5)
-            // TODO: look into getting file fingerprint quickly
+
+        do {
+            let cacheURL = try FileManager.default.url(
+                for: .cachesDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: true
+            )
+            os_log("cache URL: %s", cacheURL.absoluteString)
+
+            let dirName = (self.fileURL.deletingPathExtension().path as NSString).lastPathComponent
+            let dirURL = cacheURL.appendingPathComponent(dirName, isDirectory: true)
+            var isDir: ObjCBool = true
+            if !FileManager.default.fileExists(atPath: dirURL.path, isDirectory: &isDir) || !isDir.boolValue {
+                try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: true)
+            }
+
+            let firstEntry = archive.first { entry in
+                entry.type == .file
+            }!
+            let fileName = (firstEntry.path as NSString).lastPathComponent
+            let fileURL = dirURL.appendingPathComponent(fileName, isDirectory: false)
+            if !FileManager.default.fileExists(atPath: fileURL.path) {
+                try archive.extract(firstEntry, to: fileURL)
+            }
+
+        }
+        catch {
+            assertionFailure(error.localizedDescription)
         }
     }
 }

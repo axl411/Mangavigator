@@ -21,15 +21,20 @@ class BookZipDocument: NSDocument {
 
     override func makeWindowControllers() {
         guard let fileURL = fileURL else { return }
-        let archive = try! Book(fileURL: fileURL)
-        let containerViewController = BookContainerViewController(file: fileURL)
-        let newWindow = NSWindow(contentViewController: containerViewController)
-        let windowController = NSWindowController(window: newWindow)
-        newWindow.titleVisibility = NSWindow.TitleVisibility.hidden
-        newWindow.titlebarAppearsTransparent = true
-        newWindow.styleMask = [NSWindow.StyleMask.fullSizeContentView, newWindow.styleMask]
-        newWindow.setFrame(NSScreen.main!.frame.insetBy(dx: 100, dy: 100), display: true)
-        addWindowController(windowController)
+        do {
+            let archive = try Book(fileURL: fileURL)
+            let containerViewController = BookContainerViewController(file: fileURL)
+            let newWindow = NSWindow(contentViewController: containerViewController)
+            let windowController = NSWindowController(window: newWindow)
+            newWindow.titleVisibility = NSWindow.TitleVisibility.hidden
+            newWindow.titlebarAppearsTransparent = true
+            newWindow.styleMask = [NSWindow.StyleMask.fullSizeContentView, newWindow.styleMask]
+            newWindow.setFrame(NSScreen.main!.frame.insetBy(dx: 100, dy: 100), display: true)
+            addWindowController(windowController)
+        }
+        catch {
+            assertionFailure(error.localizedDescription)
+        }
     }
 
     override func read(from url: URL, ofType typeName: String) throws {
