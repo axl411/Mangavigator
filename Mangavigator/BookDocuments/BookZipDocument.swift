@@ -22,8 +22,8 @@ class BookZipDocument: NSDocument {
     override func makeWindowControllers() {
         guard let fileURL = fileURL else { return }
         do {
-            let archive = try Book(fileURL: fileURL)
-            let containerViewController = BookContainerViewController(file: fileURL)
+            let book = try Book(fileURL: fileURL)
+            let containerViewController = BookContainerViewController(book: book)
             let newWindow = NSWindow(contentViewController: containerViewController)
             let windowController = NSWindowController(window: newWindow)
             newWindow.titleVisibility = NSWindow.TitleVisibility.hidden

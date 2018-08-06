@@ -10,12 +10,12 @@ import Cocoa
 import ZIPFoundation
 
 class BookPresenterViewController: NSViewController {
-    private let file: URL
+    private let book: Book
     private let imageView = NSImageView()
 
 
-    init(file: URL) {
-        self.file = file
+    init(book: Book) {
+        self.book = book
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -34,34 +34,18 @@ class BookPresenterViewController: NSViewController {
 
         view.addSubview(imageView)
 
-        guard let archive = Archive(url: file, accessMode: .read) else  {
-            return
-        }
-
-        let firstFile = archive.first { entry in
-            entry.type == .file
-//            entry.path
-        }
-
         do {
-            let path = try FileManager.default.url(
-                for: .cachesDirectory,
-                in: .userDomainMask,
-                appropriateFor: nil,
-                create: true
-            ).appendingPathComponent(UUID().uuidString)
-            try? FileManager.default.removeItem(at: path)
-            try archive.extract(firstFile!, to: path)
-            imageView.image = NSImage(contentsOf: path)
-        }
-        catch {
+            guard let firstPage = try book.firstPage() else { return }
+            if case .image(let image) = firstPage {
+                imageView.image = image
+            }
+        } catch {
             print(error)
         }
     }
 
     override func viewDidLayout() {
         super.viewDidLayout()
-
         imageView.frame = view.bounds
     }
 }

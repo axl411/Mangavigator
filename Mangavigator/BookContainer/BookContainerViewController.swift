@@ -9,12 +9,12 @@
 import Cocoa
 
 class BookContainerViewController: NSViewController {
-    private let file: URL
+    private let book: Book
     private lazy var bookShelfViewController = BookShelfViewController()
-    private lazy var bookPresenterViewController = BookPresenterViewController(file: file)
+    private lazy var bookPresenterViewController = BookPresenterViewController(book: book)
 
-    init(file: URL) {
-        self.file = file
+    init(book: Book) {
+        self.book = book
         super.init(nibName: nil, bundle: nil)
     }
 
