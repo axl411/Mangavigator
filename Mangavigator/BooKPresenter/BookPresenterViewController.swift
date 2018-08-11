@@ -13,7 +13,6 @@ class BookPresenterViewController: NSViewController {
     private let book: Book
     private let imageView = NSImageView()
 
-
     init(book: Book) {
         self.book = book
         super.init(nibName: nil, bundle: nil)
@@ -24,7 +23,7 @@ class BookPresenterViewController: NSViewController {
     }
 
     override func loadView() {
-        view = NSView()
+        view = KeyboardView()
     }
 
     override func viewDidLoad() {
@@ -33,8 +32,6 @@ class BookPresenterViewController: NSViewController {
         view.layer?.backgroundColor = NSColor.cyan.cgColor
 
         view.addSubview(imageView)
-
-
 
         do {
             guard let currentPage = try book.currentPage() else { return }
