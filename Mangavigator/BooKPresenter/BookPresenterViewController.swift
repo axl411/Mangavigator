@@ -34,9 +34,11 @@ class BookPresenterViewController: NSViewController {
 
         view.addSubview(imageView)
 
+
+
         do {
-            guard let firstPage = try book.firstPage() else { return }
-            if case .image(let image) = firstPage {
+            guard let currentPage = try book.currentPage() else { return }
+            if case .image(let image) = currentPage {
                 imageView.image = image
             }
         } catch {

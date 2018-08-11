@@ -13,20 +13,43 @@ import ZIPFoundation
 class Book {
     private let fileURL: URL
     private let archive: Archive
+    private let entries: [Entry]
+    private var currentIndex = 0
 
     init(fileURL: URL) throws {
         self.fileURL = fileURL
         guard let archive = Archive(url: fileURL, accessMode: .read) else { throw BookError.failedAccessingArchive }
         self.archive = archive
+        entries = archive.compactMap { (entry: Entry) -> Entry? in
+            guard entry.type == .file else { return nil }
+            return entry
+        }
     }
 
-    func firstPage() throws -> BookPage? {
-        guard let firstEntry = archive.first(where: { $0.type == .file }) else { return nil }
-        let fileName = (firstEntry.path as NSString).lastPathComponent
-        let bookPageURL = try FileManager.bookPageURL(forBookURL: fileURL, bookPageFileName: fileName)
+    func currentPage() throws -> BookPage? {
+        return try pageAtIndex(currentIndex)
+    }
+
+    func previousPage() throws -> BookPage? {
+        guard currentIndex > entries.startIndex else { return nil }
+        let page = try pageAtIndex(currentIndex - 1)
+        currentIndex += 1
+        return page
+    }
+
+    func nextPage() throws -> BookPage? {
+        guard currentIndex < entries.endIndex - 1 else { return nil }
+        let page = try pageAtIndex(currentIndex + 1)
+        currentIndex += 1
+        return page
+    }
+
+    private func pageAtIndex(_ index: Int) throws -> BookPage {
+        let entry = entries[index]
+        let bookPageURL = try FileManager.bookPageURL(forBookURL: fileURL, bookPageFileName: entry.fileName)
 
         if !FileManager.default.fileExists(atPath: bookPageURL.path) {
-            try _ = archive.extract(firstEntry, to: bookPageURL)
+            try _ = archive.extract(entry, to: bookPageURL)
         }
 
         if let image = NSImage(contentsOf: bookPageURL) {

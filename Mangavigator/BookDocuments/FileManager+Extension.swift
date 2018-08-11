@@ -17,7 +17,7 @@ extension FileManager {
             appropriateFor: nil,
             create: true
         )
-        os_log("cacheURL: %s", cacheURL.absoluteString)
+        os_log("cache: %s", cacheURL.path)
         return cacheURL
     }()
 
@@ -28,14 +28,14 @@ extension FileManager {
         if !FileManager.default.fileExists(atPath: dirURL.path, isDirectory: &isDir) || !isDir.boolValue {
             try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: true)
         }
-        os_log("dirURL: %s", dirURL.absoluteString)
+        os_log("dir: %s", dirURL.path)
         return dirURL
     }
 
     static func bookPageURL(forBookURL bookURL: URL, bookPageFileName: String) throws -> URL {
         let dirURL = try configuredBookCacheDirURL(forBookURL: bookURL)
         let bookPageURL = dirURL.appendingPathComponent(bookPageFileName, isDirectory: false)
-        os_log("bookPageURL: %s", bookPageURL.absoluteString)
+        os_log("bookPage: %s", bookPageURL.path)
         return bookPageURL
     }
 }
