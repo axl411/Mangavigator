@@ -10,11 +10,11 @@ import Foundation
 import os
 import ZIPFoundation
 
-class Book {
+class Book: NSObject {
     private let fileURL: URL
     private let archive: Archive
     private let entries: [Entry]
-    private var currentIndex = 0
+    @objc dynamic private(set) var currentIndex = 0
 
     init(fileURL: URL) throws {
         self.fileURL = fileURL
@@ -30,18 +30,16 @@ class Book {
         return try pageAtIndex(currentIndex)
     }
 
-    func previousPage() throws -> BookPage? {
-        guard currentIndex > entries.startIndex else { return nil }
-        let page = try pageAtIndex(currentIndex - 1)
-        currentIndex += 1
-        return page
+    func GoToPreviousPage() {
+        guard currentIndex > entries.startIndex else { return }
+        currentIndex -= 1
+        os_log("GoToPreviousPage: %d", currentIndex)
     }
 
-    func nextPage() throws -> BookPage? {
-        guard currentIndex < entries.endIndex - 1 else { return nil }
-        let page = try pageAtIndex(currentIndex + 1)
+    func goToNextPage() {
+        guard currentIndex < entries.endIndex - 1 else { return }
         currentIndex += 1
-        return page
+        os_log("goToNextPage: %d", currentIndex)
     }
 
     private func pageAtIndex(_ index: Int) throws -> BookPage {

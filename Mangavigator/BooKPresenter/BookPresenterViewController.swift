@@ -8,10 +8,15 @@
 
 import Cocoa
 import ZIPFoundation
+import os
 
 class BookPresenterViewController: NSViewController {
     private let book: Book
-    private let imageView = NSImageView()
+    private let imageView: NSImageView = {
+        let imageView = NSImageView()
+        return imageView
+    }()
+    private var observing: NSKeyValueObservation?
 
     init(book: Book) {
         self.book = book
@@ -23,7 +28,9 @@ class BookPresenterViewController: NSViewController {
     }
 
     override func loadView() {
-        view = KeyboardView()
+        let keyboardView = KeyboardView()
+        view = keyboardView
+        keyboardView.delegate = self
     }
 
     override func viewDidLoad() {
@@ -33,18 +40,30 @@ class BookPresenterViewController: NSViewController {
 
         view.addSubview(imageView)
 
-        do {
-            guard let currentPage = try book.currentPage() else { return }
-            if case .image(let image) = currentPage {
-                imageView.image = image
+        observing = book.observe(\.currentIndex, options: [.initial, .new]) { [book, imageView] (_, change) in
+            do {
+                guard let currentPage = try book.currentPage() else { return }
+                if case .image(let image) = currentPage {
+                    imageView.image = image
+                }
+            } catch {
+                os_log("%@", error.localizedDescription)
             }
-        } catch {
-            print(error)
         }
     }
 
     override func viewDidLayout() {
         super.viewDidLayout()
         imageView.frame = view.bounds
+    }
+}
+
+extension BookPresenterViewController: KeyboardViewDelegate {
+    func rightPressed() {
+        book.goToNextPage()
+    }
+
+    func leftPressed() {
+        book.GoToPreviousPage()
     }
 }
