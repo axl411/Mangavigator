@@ -9,6 +9,8 @@
 import Foundation
 import os
 
+private let log = LogCategory.file.log()
+
 extension FileManager {
     private static let cacheURL: URL = {
         let cacheURL = try! FileManager.default.url(
@@ -17,7 +19,7 @@ extension FileManager {
             appropriateFor: nil,
             create: true
         )
-        os_log("cache: %s", cacheURL.path)
+        os_log("cache: %s", log: log, cacheURL.path)
         return cacheURL
     }()
 
@@ -31,14 +33,14 @@ extension FileManager {
         if !FileManager.default.fileExists(atPath: dirURL.path, isDirectory: &isDir) || !isDir.boolValue {
             try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: true)
         }
-        os_log("dir: %s", dirURL.path)
+        os_log("dir: %s", log: log, dirURL.path)
         return dirURL
     }
 
     static func bookPageURL(forBookURL bookURL: URL, bookPageFileName: String) throws -> URL {
         let dirURL = try configuredBookCacheDirURL(forBookURL: bookURL)
         let bookPageURL = dirURL.appendingPathComponent(bookPageFileName, isDirectory: false)
-        os_log("bookPage: %s", bookPageURL.path)
+        os_log("bookPage: %s", log: log, bookPageURL.path)
         return bookPageURL
     }
 }

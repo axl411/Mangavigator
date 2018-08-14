@@ -10,6 +10,8 @@ import Cocoa
 import ZIPFoundation
 import os
 
+private let log = LogCategory.ui.log()
+
 class BookPresenterViewController: NSViewController {
     private let book: Book
     private let imageView: NSImageView = {
@@ -47,7 +49,7 @@ class BookPresenterViewController: NSViewController {
                     imageView.image = image
                 }
             } catch {
-                os_log("%@", error.localizedDescription)
+                os_log("%@", log: log, type: .error, error.localizedDescription)
             }
         }
     }

@@ -10,6 +10,8 @@ import Foundation
 import os
 import ZIPFoundation
 
+private let log = LogCategory.model.log()
+
 class Book: NSObject {
     private let fileURL: URL
     private let archive: Archive
@@ -33,13 +35,13 @@ class Book: NSObject {
     func GoToPreviousPage() {
         guard currentIndex > entries.startIndex else { return }
         currentIndex -= 1
-        os_log("GoToPreviousPage: %d", currentIndex)
+        os_log("GoToPreviousPage: %d", log: log, currentIndex)
     }
 
     func goToNextPage() {
         guard currentIndex < entries.endIndex - 1 else { return }
         currentIndex += 1
-        os_log("goToNextPage: %d", currentIndex)
+        os_log("goToNextPage: %d", log: log, currentIndex)
     }
 
     private func pageAtIndex(_ index: Int) throws -> BookPage {
