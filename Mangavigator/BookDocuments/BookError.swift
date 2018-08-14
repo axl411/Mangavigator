@@ -10,4 +10,5 @@ import Foundation
 
 enum BookError: Error {
     case failedAccessingArchive
+    case failedGeneratingSHA1ForPath(String)
 }

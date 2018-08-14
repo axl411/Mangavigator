@@ -22,8 +22,11 @@ extension FileManager {
     }()
 
     private static func configuredBookCacheDirURL(forBookURL bookURL: URL) throws -> URL {
-        let dirName = (bookURL.deletingPathExtension().path as NSString).lastPathComponent
-        let dirURL = cacheURL.appendingPathComponent(dirName, isDirectory: true)
+        guard let sha1 = bookURL.path.sha1() else { throw BookError.failedGeneratingSHA1ForPath(bookURL.path) }
+        let bookDirName = (bookURL.deletingPathExtension().path as NSString).lastPathComponent
+        let dirURL = cacheURL
+            .appendingPathComponent("BookCache", isDirectory: true)
+            .appendingPathComponent(sha1 + "-" + bookDirName, isDirectory: true)
         var isDir: ObjCBool = true
         if !FileManager.default.fileExists(atPath: dirURL.path, isDirectory: &isDir) || !isDir.boolValue {
             try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: true)
