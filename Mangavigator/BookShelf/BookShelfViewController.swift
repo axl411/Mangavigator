@@ -50,22 +50,37 @@ final class BookShelfViewController: NSViewController {
 extension BookShelfViewController: NSCollectionViewDelegate {
 }
 
-
 extension BookShelfViewController: NSCollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+    func collectionView(
+        _ collectionView: NSCollectionView,
+        layout collectionViewLayout: NSCollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> NSSize {
         return NSSize(width: 200, height: 300)
     }
 
-    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, insetForSectionAt section: Int) -> NSEdgeInsets {
+    func collectionView(
+        _ collectionView: NSCollectionView,
+        layout collectionViewLayout: NSCollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> NSEdgeInsets {
         let inset: CGFloat = 50
         return NSEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
 
-    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(
+        _ collectionView: NSCollectionView,
+        layout collectionViewLayout: NSCollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return 50
     }
 
-    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(
+        _ collectionView: NSCollectionView,
+        layout collectionViewLayout: NSCollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return 25
     }
 }

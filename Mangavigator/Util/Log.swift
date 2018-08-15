@@ -10,7 +10,7 @@ import Foundation
 import os
 
 enum LogCategory: String {
-    case ui
+    case userInterface
     case file
     case model
 

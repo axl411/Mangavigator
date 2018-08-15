@@ -13,7 +13,10 @@ final class BookShelfDataSource: NSObject, NSCollectionViewDataSource {
         return 30
     }
 
-    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+    func collectionView(
+        _ collectionView: NSCollectionView,
+        itemForRepresentedObjectAt indexPath: IndexPath
+    ) -> NSCollectionViewItem {
         return collectionView.makeItem(withIdentifier: BookItem.identifier, for: indexPath)
     }
 }

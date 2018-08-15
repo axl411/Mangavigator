@@ -12,8 +12,8 @@ import os
 private let log = LogCategory.file.log()
 
 extension FileManager {
-    private static let cacheURL: URL = {
-        let cacheURL = try! FileManager.default.url(
+    private static func cacheURL() throws -> URL {
+        let cacheURL = try FileManager.default.url(
             for: .cachesDirectory,
             in: .userDomainMask,
             appropriateFor: nil,
@@ -21,12 +21,12 @@ extension FileManager {
         )
         os_log("cache: %s", log: log, cacheURL.path)
         return cacheURL
-    }()
+    }
 
     private static func configuredBookCacheDirURL(forBookURL bookURL: URL) throws -> URL {
         guard let sha1 = bookURL.path.sha1() else { throw BookError.failedGeneratingSHA1ForPath(bookURL.path) }
         let bookDirName = (bookURL.deletingPathExtension().path as NSString).lastPathComponent
-        let dirURL = cacheURL
+        let dirURL = try cacheURL()
             .appendingPathComponent("BookCache", isDirectory: true)
             .appendingPathComponent(sha1 + "-" + bookDirName, isDirectory: true)
         var isDir: ObjCBool = true

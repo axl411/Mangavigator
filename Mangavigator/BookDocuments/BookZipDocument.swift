@@ -31,8 +31,7 @@ class BookZipDocument: NSDocument {
             newWindow.styleMask = [NSWindow.StyleMask.fullSizeContentView, newWindow.styleMask]
             newWindow.setFrame(NSScreen.main!.frame.insetBy(dx: 100, dy: 100), display: true)
             addWindowController(windowController)
-        }
-        catch {
+        } catch {
             assertionFailure(error.localizedDescription)
         }
     }

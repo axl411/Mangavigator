@@ -10,7 +10,7 @@ import Cocoa
 import ZIPFoundation
 import os
 
-private let log = LogCategory.ui.log()
+private let log = LogCategory.userInterface.log()
 
 class BookPresenterViewController: NSViewController {
     private let book: Book
@@ -42,7 +42,7 @@ class BookPresenterViewController: NSViewController {
 
         view.addSubview(imageView)
 
-        observing = book.observe(\.currentIndex, options: [.initial, .new]) { [book, imageView] (_, change) in
+        observing = book.observe(\.currentIndex, options: [.initial, .new]) { [book, imageView] (_, _) in
             do {
                 guard let currentPage = try book.currentPage() else { return }
                 if case .image(let image) = currentPage {
@@ -66,6 +66,6 @@ extension BookPresenterViewController: KeyboardViewDelegate {
     }
 
     func leftPressed() {
-        book.GoToPreviousPage()
+        book.goToPreviousPage()
     }
 }

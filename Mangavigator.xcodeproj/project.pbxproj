@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B39C2DD6BF83DAAA0B6DAEB /* libPods-Mangavigator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 429CE7403EBCB0462A868F89 /* libPods-Mangavigator.a */; };
 		97405E9320FE2767008DF546 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97405E9220FE2767008DF546 /* AppDelegate.swift */; };
 		97405E9520FE2767008DF546 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97405E9420FE2767008DF546 /* ViewController.swift */; };
 		97405E9720FE2768008DF546 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97405E9620FE2768008DF546 /* Assets.xcassets */; };
@@ -24,15 +23,29 @@
 		97DBB3DF21231CF4004DB117 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DBB3DE21231CF4004DB117 /* String+Extension.swift */; };
 		97DBB3E22123219C004DB117 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DBB3E12123219C004DB117 /* Log.swift */; };
 		97DBB3E4212324F8004DB117 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DBB3E3212324F8004DB117 /* Bundle+Extension.swift */; };
+		97EA232E212473C2003125C2 /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EA232D212473C2003125C2 /* ZIPFoundation.framework */; };
+		97EA2330212473CE003125C2 /* ZIPFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 97EA232D212473C2003125C2 /* ZIPFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		97FBC4CB211F656300A8DC3F /* Entry+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FBC4CA211F656300A8DC3F /* Entry+Extension.swift */; };
 		97FBC4CD211F71EB00A8DC3F /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FBC4CC211F71EB00A8DC3F /* KeyboardView.swift */; };
 		97FD321E21134E2E00EE4978 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD321D21134E2E00EE4978 /* Book.swift */; };
 		97FD322021134ED000EE4978 /* BookError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD321F21134ED000EE4978 /* BookError.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		97EA2331212473CE003125C2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				97EA2330212473CE003125C2 /* ZIPFoundation.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		05A56C9DAA7856F0766CF302 /* Pods-Mangavigator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mangavigator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mangavigator/Pods-Mangavigator.debug.xcconfig"; sourceTree = "<group>"; };
-		429CE7403EBCB0462A868F89 /* libPods-Mangavigator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mangavigator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		97405E8F20FE2767008DF546 /* Mangavigator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mangavigator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97405E9220FE2767008DF546 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97405E9420FE2767008DF546 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,11 +66,11 @@
 		97DBB3DE21231CF4004DB117 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		97DBB3E12123219C004DB117 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		97DBB3E3212324F8004DB117 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
+		97EA232D212473C2003125C2 /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97FBC4CA211F656300A8DC3F /* Entry+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+Extension.swift"; sourceTree = "<group>"; };
 		97FBC4CC211F71EB00A8DC3F /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		97FD321D21134E2E00EE4978 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		97FD321F21134ED000EE4978 /* BookError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookError.swift; sourceTree = "<group>"; };
-		BD276D5D996120E3EDAC834F /* Pods-Mangavigator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mangavigator.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mangavigator/Pods-Mangavigator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,29 +78,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B39C2DD6BF83DAAA0B6DAEB /* libPods-Mangavigator.a in Frameworks */,
+				97EA232E212473C2003125C2 /* ZIPFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		954DC0D17D03EB416BDF85BC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				429CE7403EBCB0462A868F89 /* libPods-Mangavigator.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		97405E8620FE2767008DF546 = {
 			isa = PBXGroup;
 			children = (
 				977740A32102C5B80075928F /* MyPlayground.playground */,
 				97405E9120FE2767008DF546 /* Mangavigator */,
 				97405E9020FE2767008DF546 /* Products */,
-				C147A7D40A3DB91E76988F3C /* Pods */,
-				954DC0D17D03EB416BDF85BC /* Frameworks */,
+				97EA232C212473C2003125C2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,13 +172,12 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		C147A7D40A3DB91E76988F3C /* Pods */ = {
+		97EA232C212473C2003125C2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				05A56C9DAA7856F0766CF302 /* Pods-Mangavigator.debug.xcconfig */,
-				BD276D5D996120E3EDAC834F /* Pods-Mangavigator.release.xcconfig */,
+				97EA232D212473C2003125C2 /* ZIPFoundation.framework */,
 			);
-			name = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,10 +187,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97405E9F20FE2768008DF546 /* Build configuration list for PBXNativeTarget "Mangavigator" */;
 			buildPhases = (
-				EBC8F71407BDA2F341D968F6 /* [CP] Check Pods Manifest.lock */,
+				97EA2332212474CB003125C2 /* Run Script */,
 				97405E8B20FE2767008DF546 /* Sources */,
 				97405E8C20FE2767008DF546 /* Frameworks */,
 				97405E8D20FE2767008DF546 /* Resources */,
+				97EA2331212473CE003125C2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -244,23 +248,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		EBC8F71407BDA2F341D968F6 /* [CP] Check Pods Manifest.lock */ = {
+		97EA2332212474CB003125C2 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+			inputFileListPaths = (
 			);
-			name = "[CP] Check Pods Manifest.lock";
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Mangavigator-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "mint run swiftlint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -421,7 +425,6 @@
 		};
 		97405EA020FE2768008DF546 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 05A56C9DAA7856F0766CF302 /* Pods-Mangavigator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Mangavigator/Mangavigator.entitlements;
@@ -439,7 +442,6 @@
 		};
 		97405EA120FE2768008DF546 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD276D5D996120E3EDAC834F /* Pods-Mangavigator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Mangavigator/Mangavigator.entitlements;

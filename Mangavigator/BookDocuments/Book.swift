@@ -6,7 +6,7 @@
 //  Copyright © 2018 Gu Chao. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 import os
 import ZIPFoundation
 
@@ -32,7 +32,7 @@ class Book: NSObject {
         return try pageAtIndex(currentIndex)
     }
 
-    func GoToPreviousPage() {
+    func goToPreviousPage() {
         guard currentIndex > entries.startIndex else { return }
         currentIndex -= 1
         os_log("GoToPreviousPage: %d", log: log, currentIndex)
