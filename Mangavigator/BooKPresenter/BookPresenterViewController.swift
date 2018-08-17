@@ -16,6 +16,8 @@ class BookPresenterViewController: NSViewController {
     private let book: Book
     private let imageView: NSImageView = {
         let imageView = NSImageView()
+        imageView.imageAlignment = .alignCenter
+        imageView.imageScaling = .scaleProportionallyUpOrDown
         return imageView
     }()
     private var observing: NSKeyValueObservation?
