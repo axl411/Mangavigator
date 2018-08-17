@@ -28,27 +28,17 @@ class BookContainerViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.yellow.cgColor
-
-        addChild(bookShelfViewController)
-        view.addSubview(bookShelfViewController.view)
 
         addChild(bookPresenterViewController)
-        view.addSubview(bookPresenterViewController.view)
-    }
-
-    override func viewDidLayout() {
-        super.viewDidLayout()
-
-        bookShelfViewController.view.frame = NSRect(
-            x: 0,
-            y: 0,
-            width: view.frame.width * 0.3,
-            height: view.frame.height
-        )
-
-        bookPresenterViewController.view.frame = view.bounds
+        let bookView = bookPresenterViewController.view
+        view.addSubview(bookView)
+        bookView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bookView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bookView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bookView.topAnchor.constraint(equalTo: view.topAnchor),
+            bookView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 }
