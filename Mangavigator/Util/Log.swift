@@ -11,7 +11,6 @@ import os
 
 enum LogCategory: String {
     case userInterface
-    case file
     case model
 
     func log() -> OSLog {

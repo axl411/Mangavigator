@@ -50,13 +50,12 @@ class Book: NSObject {
 
     private func pageAtIndex(_ index: Int) throws -> BookPage {
         let entry = entries[index]
-        let bookPageURL = try FileManager.bookPageURL(forBookURL: fileURL, bookPageFileName: entry.fileName)
 
-        if !FileManager.default.fileExists(atPath: bookPageURL.path) {
-            try _ = archive.extract(entry, to: bookPageURL)
+        var imageData = Data()
+        try _ = archive.extract(entry) { data in
+            imageData.append(data)
         }
-
-        if let image = NSImage(contentsOf: bookPageURL) {
+        if let image = NSImage(data: imageData) {
             return .image(image)
         } else {
             return .nonImage
