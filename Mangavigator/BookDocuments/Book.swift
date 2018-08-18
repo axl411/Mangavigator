@@ -23,11 +23,7 @@ class Book: NSObject {
         guard let archive = Archive(url: fileURL, accessMode: .read) else { throw BookError.failedAccessingArchive }
         self.archive = archive
         entries = archive.compactMap { (entry: Entry) -> Entry? in
-            guard entry.type == .file else { return nil }
-            // wanted: 09df85467392381dd134565f757e2511/19.jpg
-            // unwanted: __MACOSX/09df85467392381dd134565f757e2511/._19.jpg
-            // unwanted: __MACOSX/._09df85467392381dd134565f757e2511
-            guard !entry.path.hasPrefix("__MACOSX") else { return nil }
+            guard entry.isWantedFile else { return nil }
             return entry
         }.sorted { $0.fileName < $1.fileName }
     }
