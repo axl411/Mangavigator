@@ -14,7 +14,9 @@ class BookPageOperation: BlockOperation {
 
     init(targetIndex: Int, bookData: BookData) {
         super.init()
-        addExecutionBlock { [unowned self] in
+        name = bookData.operationName(forIndex: targetIndex)
+        addExecutionBlock { [weak self] in
+            guard let self = `self` else { return }
             let entry = bookData.entries[targetIndex]
 
             var imageData = Data()
@@ -27,5 +29,19 @@ class BookPageOperation: BlockOperation {
                 self.bookPage = .nonImage
             }
         }
+    }
+}
+
+extension BookPageOperation {
+    func addToQueue(_ queue: OperationQueue, onFinish: @escaping () -> Void) {
+        let doneOperation = BlockOperation(block: onFinish)
+        doneOperation.addDependency(self)
+        queue.addOperations([self, doneOperation], waitUntilFinished: false)
+    }
+}
+
+extension BookData {
+    func operationName(forIndex index: Int) -> String {
+        return self[index].path
     }
 }

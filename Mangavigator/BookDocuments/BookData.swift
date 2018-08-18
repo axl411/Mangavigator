@@ -21,4 +21,8 @@ class BookData {
             return entry
         }.sorted { $0.fileName < $1.fileName }
     }
+
+    subscript(index: Int) -> Entry {
+        return entries[index]
+    }
 }
