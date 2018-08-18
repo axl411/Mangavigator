@@ -8,24 +8,16 @@
 
 import Cocoa
 import os
-import ZIPFoundation
 
 private let log = LogCategory.model.log()
 
 class Book: NSObject {
-    private let fileURL: URL
-    private let archive: Archive
-    private let entries: [Entry]
+    private let bookData: BookData
+    private lazy var operationSheduler = BookOperationSheduler(bookData: bookData)
     @objc dynamic private(set) var currentIndex = 0
 
     init(fileURL: URL) throws {
-        self.fileURL = fileURL
-        guard let archive = Archive(url: fileURL, accessMode: .read) else { throw BookError.failedAccessingArchive }
-        self.archive = archive
-        entries = archive.compactMap { (entry: Entry) -> Entry? in
-            guard entry.isWantedFile else { return nil }
-            return entry
-        }.sorted { $0.fileName < $1.fileName }
+        bookData = try BookData(fileURL: fileURL)
     }
 
     func currentPage() throws -> BookPage? {
@@ -33,28 +25,18 @@ class Book: NSObject {
     }
 
     func goToPreviousPage() {
-        guard currentIndex > entries.startIndex else { return }
+        guard currentIndex > bookData.entries.startIndex else { return }
         currentIndex -= 1
         os_log("GoToPreviousPage: %d", log: log, currentIndex)
     }
 
     func goToNextPage() {
-        guard currentIndex < entries.endIndex - 1 else { return }
+        guard currentIndex < bookData.entries.endIndex - 1 else { return }
         currentIndex += 1
         os_log("goToNextPage: %d", log: log, currentIndex)
     }
 
     private func pageAtIndex(_ index: Int) throws -> BookPage {
-        let entry = entries[index]
-
-        var imageData = Data()
-        try _ = archive.extract(entry) { data in
-            imageData.append(data)
-        }
-        if let image = NSImage(data: imageData) {
-            return .image(image)
-        } else {
-            return .nonImage
-        }
+        return operationSheduler.bookPage(forTargetIndex: index)
     }
 }
