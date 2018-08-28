@@ -49,6 +49,7 @@ class BookControlsViewController: NSViewController {
             textField.topAnchor.constraint(equalTo: view.topAnchor, constant: nameLabelInset),
             textField.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+        // TODO: auto hide book title
     }
 
     override func viewDidLayout() {
