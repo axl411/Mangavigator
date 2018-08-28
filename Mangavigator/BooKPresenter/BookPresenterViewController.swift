@@ -21,6 +21,7 @@ class BookPresenterViewController: NSViewController {
         return imageView
     }()
     private var observing: NSKeyValueObservation?
+    private lazy var bookControlsViewController = BookControlsViewController(book: book)
 
     init(book: Book) {
         self.book = book
@@ -34,15 +35,14 @@ class BookPresenterViewController: NSViewController {
     override func loadView() {
         let keyboardView = KeyboardView()
         view = keyboardView
+        view.wantsLayer = true
         keyboardView.delegate = self
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.wantsLayer = true
 
         view.addSubview(imageView)
-
         observing = book.observe(\.currentIndex, options: [.initial, .new]) { [book, imageView] (_, _) in
             do {
                 guard let currentPage = try book.currentPage() else { return }
@@ -53,6 +53,8 @@ class BookPresenterViewController: NSViewController {
                 os_log("%@", log: log, type: .error, error.localizedDescription)
             }
         }
+
+        addChildViewController(bookControlsViewController, childViewLayout: .fill)
     }
 
     override func viewDidLayout() {

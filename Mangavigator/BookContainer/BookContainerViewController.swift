@@ -30,15 +30,6 @@ class BookContainerViewController: NSViewController {
         super.viewDidLoad()
         view.wantsLayer = true
 
-        addChild(bookPresenterViewController)
-        let bookView = bookPresenterViewController.view
-        view.addSubview(bookView)
-        bookView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            bookView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bookView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bookView.topAnchor.constraint(equalTo: view.topAnchor),
-            bookView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        addChildViewController(bookPresenterViewController, childViewLayout: .fill)
     }
 }

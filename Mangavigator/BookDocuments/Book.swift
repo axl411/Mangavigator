@@ -40,3 +40,9 @@ class Book: NSObject {
         return operationSheduler.bookPage(forTargetIndex: index)
     }
 }
+
+extension Book {
+    var name: String {
+        return bookData.archive.url.lastPathComponent
+    }
+}
