@@ -14,14 +14,16 @@ private let log = LogCategory.userInterface.log()
 
 class BookPresenterViewController: NSViewController {
     private let book: Book
+    private var observing: NSKeyValueObservation?
+
+    private lazy var bookControlsViewController = BookControlsViewController(book: book)
+
     private let imageView: NSImageView = {
         let imageView = NSImageView()
         imageView.imageAlignment = .alignCenter
         imageView.imageScaling = .scaleProportionallyUpOrDown
         return imageView
     }()
-    private var observing: NSKeyValueObservation?
-    private lazy var bookControlsViewController = BookControlsViewController(book: book)
 
     init(book: Book) {
         self.book = book
@@ -33,7 +35,7 @@ class BookPresenterViewController: NSViewController {
     }
 
     override func loadView() {
-        let keyboardView = KeyboardView()
+        let keyboardView = EventsView()
         view = keyboardView
         view.wantsLayer = true
         keyboardView.delegate = self
@@ -55,15 +57,29 @@ class BookPresenterViewController: NSViewController {
         }
 
         addChildViewController(bookControlsViewController, childViewLayout: .fill)
+        bookControlsViewController.view.isHidden = true
     }
 
     override func viewDidLayout() {
         super.viewDidLayout()
         imageView.frame = view.bounds
     }
+
+    @objc private func hideControls() {
+        bookControlsViewController.view.animator().isHidden = true
+    }
 }
 
-extension BookPresenterViewController: KeyboardViewDelegate {
+extension BookPresenterViewController: EventsViewDelegate {
+    func mouseMoved() {
+        if bookControlsViewController.view.isHidden {
+            bookControlsViewController.view.animator().isHidden = false
+        } else {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControls), object: nil)
+        }
+        perform(#selector(hideControls), with: nil, afterDelay: 1.5)
+    }
+
     func rightPressed() {
         book.goToNextPage()
     }
