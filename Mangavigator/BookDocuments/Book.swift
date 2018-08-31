@@ -11,27 +11,27 @@ import os
 
 private let log = LogCategory.model.log()
 
-class Book: NSObject {
-    @objc enum Mode: Int {
-        case singlePage
-        case dualPage
+@objc enum BookLayoutMode: Int {
+    case singlePage = 0
+    case dualPage
 
-        func step() -> Int {
-            switch self {
-            case .singlePage: return 1
-            case .dualPage: return 2
-            }
-        }
-
-        func toggled() -> Mode {
-            switch self {
-            case .singlePage: return .dualPage
-            case .dualPage: return .singlePage
-            }
+    func step() -> Int {
+        switch self {
+        case .singlePage: return 1
+        case .dualPage: return 2
         }
     }
 
-    @objc dynamic private(set) var mode = Mode.singlePage
+    func toggled() -> BookLayoutMode {
+        switch self {
+        case .singlePage: return .dualPage
+        case .dualPage: return .singlePage
+        }
+    }
+}
+
+class Book: NSObject {
+    @objc dynamic private(set) var mode = UserDefaults.bookLayoutMode()
     private let bookData: BookData
     private lazy var operationSheduler = BookOperationSheduler(bookData: bookData)
     @objc dynamic private(set) var currentIndex = 0
@@ -42,6 +42,7 @@ class Book: NSObject {
 
     func toggleMode() {
         mode = mode.toggled()
+        UserDefaults.setBookLayoutMode(mode)
     }
 
     func currentPage() throws -> BookPage? {

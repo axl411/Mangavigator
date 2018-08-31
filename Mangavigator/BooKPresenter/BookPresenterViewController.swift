@@ -19,19 +19,19 @@ private let imageViewMaker: () -> NSImageView = {
     return imageView
 }
 
-class BookPresenterViewController: NSViewController {
-    enum Direction {
-        case leftToRight
-        case rightToLeft
+enum BookDirection: Int {
+    case leftToRight = 0
+    case rightToLeft
 
-        func toggled() -> Direction {
-            switch self {
-            case .leftToRight: return .rightToLeft
-            case .rightToLeft: return .leftToRight
-            }
+    func toggled() -> BookDirection {
+        switch self {
+        case .leftToRight: return .rightToLeft
+        case .rightToLeft: return .leftToRight
         }
     }
+}
 
+class BookPresenterViewController: NSViewController {
     private let book: Book
     private var bookIndexObserving: NSKeyValueObservation?
     private var bookModeObserving: NSKeyValueObservation?
@@ -41,7 +41,7 @@ class BookPresenterViewController: NSViewController {
     private let mainImageView: NSImageView = imageViewMaker()
     private let subImageView: NSImageView = imageViewMaker()
 
-    private var direction = Direction.leftToRight {
+    private var direction = UserDefaults.bookDirection() {
         didSet {
             adjustImageViewFramesAndAlignments()
         }
@@ -152,6 +152,7 @@ class BookPresenterViewController: NSViewController {
 
     fileprivate func toggleDirection() {
         direction = direction.toggled()
+        UserDefaults.setBookDirection(direction)
     }
 }
 
