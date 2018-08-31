@@ -12,6 +12,26 @@ import os
 private let log = LogCategory.model.log()
 
 class Book: NSObject {
+    @objc enum Mode: Int {
+        case singlePage
+        case dualPage
+
+        func step() -> Int {
+            switch self {
+            case .singlePage: return 1
+            case .dualPage: return 2
+            }
+        }
+
+        func toggled() -> Mode {
+            switch self {
+            case .singlePage: return .dualPage
+            case .dualPage: return .singlePage
+            }
+        }
+    }
+
+    @objc dynamic private(set) var mode = Mode.singlePage
     private let bookData: BookData
     private lazy var operationSheduler = BookOperationSheduler(bookData: bookData)
     @objc dynamic private(set) var currentIndex = 0
@@ -20,20 +40,33 @@ class Book: NSObject {
         bookData = try BookData(fileURL: fileURL)
     }
 
+    func toggleMode() {
+        mode = mode.toggled()
+    }
+
     func currentPage() throws -> BookPage? {
         return try pageAtIndex(currentIndex)
     }
 
-    func goToPreviousPage() {
-        guard currentIndex > bookData.entries.startIndex else { return }
-        currentIndex -= 1
-        os_log("GoToPreviousPage: %d", log: log, currentIndex)
+    func peekNextPage() throws -> BookPage? {
+        guard currentIndex < bookData.entries.endIndex - 1 else { return nil }
+        return try pageAtIndex(currentIndex + 1)
     }
 
-    func goToNextPage() {
-        guard currentIndex < bookData.entries.endIndex - 1 else { return }
-        currentIndex += 1
-        os_log("goToNextPage: %d", log: log, currentIndex)
+    func goBackward() {
+        var index = currentIndex
+        index -= mode.step()
+        guard index >= bookData.entries.startIndex else { return }
+        currentIndex = index
+        os_log("goBackward: %d", log: log, currentIndex)
+    }
+
+    func goForward() {
+        var index = currentIndex
+        index += mode.step()
+        guard index < bookData.entries.endIndex else { return }
+        currentIndex = index
+        os_log("goForward: %d", log: log, currentIndex)
     }
 
     private func pageAtIndex(_ index: Int) throws -> BookPage {

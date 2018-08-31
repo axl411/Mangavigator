@@ -11,6 +11,8 @@ import Cocoa
 protocol EventsViewDelegate: class {
     func rightPressed()
     func leftPressed()
+    func spacePressed()
+    func cmdAndDPressed()
     func mouseMoved()
 }
 
@@ -35,6 +37,21 @@ class EventsView: NSView {
 
     override func moveLeft(_ sender: Any?) {
         delegate?.leftPressed()
+    }
+
+    override func performKeyEquivalent(with event: NSEvent) -> Bool {
+        if let str = event.charactersIgnoringModifiers {
+            if str == " " {
+                delegate?.spacePressed()
+                return true
+            } else if str == "d",
+                event.modifierFlags.contains(.command) {
+                delegate?.cmdAndDPressed()
+                return true
+            }
+        }
+
+        return false
     }
 
     override func mouseMoved(with event: NSEvent) {

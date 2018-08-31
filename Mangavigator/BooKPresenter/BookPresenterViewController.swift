@@ -12,18 +12,40 @@ import os
 
 private let log = LogCategory.userInterface.log()
 
+private let imageViewMaker: () -> NSImageView = {
+    let imageView = NSImageView()
+    imageView.imageAlignment = .alignCenter
+    imageView.imageScaling = .scaleProportionallyUpOrDown
+    return imageView
+}
+
 class BookPresenterViewController: NSViewController {
+    enum Direction {
+        case leftToRight
+        case rightToLeft
+
+        func toggled() -> Direction {
+            switch self {
+            case .leftToRight: return .rightToLeft
+            case .rightToLeft: return .leftToRight
+            }
+        }
+    }
+
     private let book: Book
-    private var observing: NSKeyValueObservation?
+    private var bookIndexObserving: NSKeyValueObservation?
+    private var bookModeObserving: NSKeyValueObservation?
 
     private lazy var bookControlsViewController = BookControlsViewController(book: book)
 
-    private let imageView: NSImageView = {
-        let imageView = NSImageView()
-        imageView.imageAlignment = .alignCenter
-        imageView.imageScaling = .scaleProportionallyUpOrDown
-        return imageView
-    }()
+    private let mainImageView: NSImageView = imageViewMaker()
+    private let subImageView: NSImageView = imageViewMaker()
+
+    private var direction = Direction.leftToRight {
+        didSet {
+            adjustImageViewFramesAndAlignments()
+        }
+    }
 
     init(book: Book) {
         self.book = book
@@ -44,29 +66,92 @@ class BookPresenterViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(imageView)
-        observing = book.observe(\.currentIndex, options: [.initial, .new]) { [book, imageView] (_, _) in
+        view.addSubview(mainImageView)
+        view.addSubview(subImageView)
+
+        bookIndexObserving = book.observe(
+            \.currentIndex,
+            options: [.initial, .new]
+        ) { [weak self] (_, _) in
+            guard let `self` = self else { return }
             do {
-                guard let currentPage = try book.currentPage() else { return }
-                if case .image(let image) = currentPage {
-                    imageView.image = image
+                if let currentPage = try self.book.currentPage(),
+                    case .image(let image) = currentPage {
+                    self.mainImageView.image = image
+                }
+                if self.book.mode == .dualPage {
+                    try self.setupSubImageView()
                 }
             } catch {
                 os_log("%@", log: log, type: .error, error.localizedDescription)
             }
         }
 
+        bookModeObserving = book.observe(
+            \.mode,
+            options: [.initial, .new]
+        ) { [weak self] (_, _) in
+            guard let `self` = self else { return }
+            do {
+                switch self.book.mode {
+                case .singlePage: self.subImageView.isHidden = true
+                case .dualPage:
+                    self.subImageView.isHidden = false
+                    try self.setupSubImageView()
+                }
+            } catch {
+                os_log("%@", log: log, type: .error, error.localizedDescription)
+            }
+            self.adjustImageViewFramesAndAlignments()
+        }
+
         addChildViewController(bookControlsViewController, childViewLayout: .fill)
         bookControlsViewController.view.isHidden = true
     }
 
+    private func setupSubImageView() throws {
+        if let nextPage = try book.peekNextPage(),
+            case .image(let image) = nextPage {
+            subImageView.image = image
+        }
+    }
+
     override func viewDidLayout() {
         super.viewDidLayout()
-        imageView.frame = view.bounds
+        adjustImageViewFramesAndAlignments()
+    }
+
+    private func adjustImageViewFramesAndAlignments() {
+        switch book.mode {
+        case .singlePage:
+            mainImageView.frame = view.bounds
+            mainImageView.imageAlignment = .alignCenter
+        case .dualPage:
+            let (left, right) = view.bounds.divided(
+                atDistance: view.bounds.width / 2,
+                from: .minXEdge
+            )
+            switch direction {
+            case .leftToRight:
+                mainImageView.frame = left
+                mainImageView.imageAlignment = .alignRight
+                subImageView.frame = right
+                subImageView.imageAlignment = .alignLeft
+            case .rightToLeft:
+                mainImageView.frame = right
+                mainImageView.imageAlignment = .alignLeft
+                subImageView.frame = left
+                subImageView.imageAlignment = .alignRight
+            }
+        }
     }
 
     @objc private func hideControls() {
         bookControlsViewController.view.animator().isHidden = true
+    }
+
+    fileprivate func toggleDirection() {
+        direction = direction.toggled()
     }
 }
 
@@ -81,10 +166,24 @@ extension BookPresenterViewController: EventsViewDelegate {
     }
 
     func rightPressed() {
-        book.goToNextPage()
+        switch direction {
+        case .leftToRight: book.goForward()
+        case .rightToLeft: book.goBackward()
+        }
     }
 
     func leftPressed() {
-        book.goToPreviousPage()
+        switch direction {
+        case .leftToRight: book.goBackward()
+        case .rightToLeft: book.goForward()
+        }
+    }
+
+    func spacePressed() {
+        book.toggleMode()
+    }
+
+    func cmdAndDPressed() {
+        toggleDirection()
     }
 }
