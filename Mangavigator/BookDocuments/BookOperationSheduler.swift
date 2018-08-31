@@ -55,10 +55,14 @@ class BookOperationSheduler {
     }
 
     private func shedulePreloadingOperation(forCurrentIndex index: Int) {
-        let indexToPreload = index + 1
+        shedulePreloadingOperationForImage(atIndex: index + 1)
+        shedulePreloadingOperationForImage(atIndex: index + 2)
+    }
+
+    private func shedulePreloadingOperationForImage(atIndex indexToPreload: Int) {
         guard bookData.entries.startIndex..<bookData.entries.endIndex ~= indexToPreload,
             findOperation(forTargetIndex: indexToPreload) == nil
-        else { return }
+            else { return }
         let operation = BookPageOperation(targetIndex: indexToPreload, bookData: bookData)
 
         operation.addToQueue(queue) {
