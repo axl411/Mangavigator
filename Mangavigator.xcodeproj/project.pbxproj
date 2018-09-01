@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		970EAD93213AE98000AA0A42 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970EAD92213AE98000AA0A42 /* Styles.swift */; };
+		970EAD95213AEE7300AA0A42 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970EAD94213AEE7300AA0A42 /* Images.swift */; };
 		97367062213581C80032CD76 /* BookControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97367061213581C80032CD76 /* BookControlsViewController.swift */; };
 		97367064213584D00032CD76 /* NSViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97367063213584D00032CD76 /* NSViewController+Extension.swift */; };
 		973C886621398F9800A42A18 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C886521398F9800A42A18 /* UserDefaults+Extension.swift */; };
@@ -49,6 +51,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		970EAD92213AE98000AA0A42 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		970EAD94213AEE7300AA0A42 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		97367061213581C80032CD76 /* BookControlsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookControlsViewController.swift; sourceTree = "<group>"; };
 		97367063213584D00032CD76 /* NSViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Extension.swift"; sourceTree = "<group>"; };
 		973C886521398F9800A42A18 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
@@ -91,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		970EAD91213AE97400AA0A42 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				970EAD92213AE98000AA0A42 /* Styles.swift */,
+				970EAD94213AEE7300AA0A42 /* Images.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		973C886421398F8400A42A18 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +135,7 @@
 			children = (
 				97405E9220FE2767008DF546 /* AppDelegate.swift */,
 				97405E9420FE2767008DF546 /* ViewController.swift */,
+				970EAD91213AE97400AA0A42 /* Resource */,
 				973C886421398F8400A42A18 /* Preferences */,
 				97DBB3E021232192004DB117 /* Util */,
 				97790300210C4D1C009458F8 /* BookDocuments */,
@@ -301,9 +315,11 @@
 				97DBB3E22123219C004DB117 /* Log.swift in Sources */,
 				97367062213581C80032CD76 /* BookControlsViewController.swift in Sources */,
 				97367064213584D00032CD76 /* NSViewController+Extension.swift in Sources */,
+				970EAD93213AE98000AA0A42 /* Styles.swift in Sources */,
 				97932DEA210CA5DC0077368B /* BookShelfViewController.swift in Sources */,
 				97550AB421109C9E003E93FF /* BookPresenterViewController.swift in Sources */,
 				973C886621398F9800A42A18 /* UserDefaults+Extension.swift in Sources */,
+				970EAD95213AEE7300AA0A42 /* Images.swift in Sources */,
 				97405EA320FE2988008DF546 /* AppContext.swift in Sources */,
 				97874A302103A87500DACCE8 /* BookShelfDataSource.swift in Sources */,
 				97FD321E21134E2E00EE4978 /* Book.swift in Sources */,

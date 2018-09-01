@@ -26,7 +26,7 @@ class BookPageOperation: BlockOperation {
             if let image = NSImage(data: imageData) {
                 self.bookPage = .image(image)
             } else {
-                self.bookPage = .nonImage
+                self.bookPage = .nonImage(fileName: entry.fileName)
             }
         }
     }

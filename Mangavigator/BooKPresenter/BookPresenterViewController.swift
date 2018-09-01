@@ -119,7 +119,8 @@ class BookPresenterViewController: NSViewController {
     private func setup(imageView: NSImageView, with bookPage: BookPage) {
         switch bookPage {
         case .image(let image): imageView.image = image
-        case .nonImage: imageView.image = NSImage(named: "non_image")
+        case .nonImage(let fileName):
+            imageView.image = Images.nonImageImage(size: mainImageView.bounds.size, fileName: "[\(fileName)]")
         }
     }
 

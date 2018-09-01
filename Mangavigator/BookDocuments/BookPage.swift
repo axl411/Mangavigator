@@ -10,5 +10,5 @@ import Cocoa
 
 enum BookPage {
     case image(NSImage)
-    case nonImage
+    case nonImage(fileName: String)
 }
