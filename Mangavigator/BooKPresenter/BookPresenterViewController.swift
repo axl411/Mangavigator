@@ -75,9 +75,8 @@ class BookPresenterViewController: NSViewController {
         ) { [weak self] (_, _) in
             guard let `self` = self else { return }
             do {
-                if let currentPage = try self.book.currentPage(),
-                    case .image(let image) = currentPage {
-                    self.mainImageView.image = image
+                if let currentPage = try self.book.currentPage() {
+                    self.setup(imageView: self.mainImageView, with: currentPage)
                 }
                 if self.book.mode == .dualPage {
                     try self.setupSubImageView()
@@ -110,9 +109,17 @@ class BookPresenterViewController: NSViewController {
     }
 
     private func setupSubImageView() throws {
-        if let nextPage = try book.peekNextPage(),
-            case .image(let image) = nextPage {
-            subImageView.image = image
+        if let nextPage = try book.peekNextPage() {
+            setup(imageView: subImageView, with: nextPage)
+        } else {
+            subImageView.image = nil
+        }
+    }
+
+    private func setup(imageView: NSImageView, with bookPage: BookPage) {
+        switch bookPage {
+        case .image(let image): imageView.image = image
+        case .nonImage: imageView.image = NSImage(named: "non_image")
         }
     }
 

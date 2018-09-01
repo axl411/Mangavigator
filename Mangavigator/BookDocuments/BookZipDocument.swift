@@ -18,7 +18,7 @@ class BookZipDocument: NSDocument {
     override class var autosavesInPlace: Bool {
         return true
     }
-
+    // TODO: key on menu: implement -[menuDelegate menuNeedsUpdate:]
     override func makeWindowControllers() {
         guard let fileURL = fileURL else { return }
         do {

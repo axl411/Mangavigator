@@ -14,11 +14,19 @@ extension Entry {
         return (path as NSString).lastPathComponent
     }
 
+    var fileExtension: String {
+        return (fileName as NSString).pathExtension
+    }
+
     var isWantedFile: Bool {
-        guard type == .file else { return false }
+        guard
+            type == .file,
+            !fileName.hasPrefix("."),
+            fileExtension != "db"
+        else { return false }
         // wanted: 09df85467392381dd134565f757e2511/19.jpg
         // unwanted: __MACOSX/09df85467392381dd134565f757e2511/._19.jpg
         // unwanted: __MACOSX/._09df85467392381dd134565f757e2511
-        return !fileName.hasPrefix(".")
+        return true
     }
 }
