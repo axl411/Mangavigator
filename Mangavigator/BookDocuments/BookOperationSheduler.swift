@@ -55,8 +55,7 @@ class BookOperationSheduler {
     }
 
     private func shedulePreloadingOperation(forCurrentIndex index: Int) {
-        shedulePreloadingOperationForImage(atIndex: index + 1)
-        shedulePreloadingOperationForImage(atIndex: index + 2)
+        (1...4).forEach { shedulePreloadingOperationForImage(atIndex: index + $0) }
     }
 
     private func shedulePreloadingOperationForImage(atIndex indexToPreload: Int) {
@@ -78,7 +77,7 @@ class BookOperationSheduler {
         guard operation.isFinished else { assertionFailure(); return }
         preloadedOperations.removeAll(where: { $0.name == operation.name })
         preloadedOperations.append(operation)
-        if preloadedOperations.count > 5 {
+        if preloadedOperations.count > 6 {
             preloadedOperations.remove(at: preloadedOperations.startIndex)
         }
     }
