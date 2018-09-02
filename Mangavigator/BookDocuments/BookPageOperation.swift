@@ -11,8 +11,10 @@ import ZIPFoundation
 
 class BookPageOperation: BlockOperation {
     var bookPage: BookPage?
+    let targetIndex: Int
 
     init(targetIndex: Int, bookData: BookData) {
+        self.targetIndex = targetIndex
         super.init()
         name = bookData.operationName(forIndex: targetIndex)
         addExecutionBlock { [weak self] in

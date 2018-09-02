@@ -115,7 +115,7 @@ class BookPresenterViewController: NSViewController {
             subImageView.image = nil
         }
     }
-
+// TODO: implement drop file on app to open
     private func setup(imageView: NSImageView, with bookPage: BookPage) {
         switch bookPage {
         case .image(let image): imageView.image = image

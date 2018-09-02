@@ -12,6 +12,7 @@ import os
 enum LogCategory: String {
     case userInterface
     case model
+    case concurrency
 
     func log() -> OSLog {
         return OSLog(subsystem: Bundle.main.bundleIdentifier!, category: rawValue)

@@ -7,6 +7,11 @@
 //
 
 import Foundation
+import os
+
+private let log = LogCategory.concurrency.log()
+
+private let preloadedOperationCount = 6
 
 class BookOperationSheduler {
     private let queue: OperationQueue = {
@@ -23,6 +28,7 @@ class BookOperationSheduler {
     }
 
     func bookPage(forTargetIndex index: Int) -> BookPage {
+        os_log("ℹ️ Finding bookPage for index %d", log: log, type: .debug, index)
         let operation = sheduledOperation(forTargetIndex: index)
         operation.waitUntilFinished()
         addLoadedOperation(operation)
@@ -32,8 +38,10 @@ class BookOperationSheduler {
 
     private func sheduledOperation(forTargetIndex index: Int) -> BookPageOperation {
         if let operation = findOperation(forTargetIndex: index) {
+            os_log("✅ Found preloaded or running op[%d]", log: log, type: .debug, index)
             return operation
         } else {
+            os_log("❌ op[%d] not found, creat new", log: log, type: .debug, index)
             let newOperation = BookPageOperation(targetIndex: index, bookData: bookData)
             queue.addOperation(newOperation)
             return newOperation
@@ -46,16 +54,24 @@ class BookOperationSheduler {
             preloadedOperationsLock.unlock()
         }
         if let operation = preloadedOperations.first(where: { $0.name == bookData.operationName(forIndex: index)}) {
+            os_log("Found finished op[%d]", log: log, type: .debug, index)
             return operation
         } else {
-            return queue.operations.first(
+            if let operation = queue.operations.first(
                 where: { $0.name == bookData.operationName(forIndex: index)}
-            ) as? BookPageOperation
+            ) as? BookPageOperation {
+                os_log("Found running op[%d]", log: log, type: .debug, index)
+                return operation
+            } else {
+                return nil
+            }
         }
     }
 
     private func shedulePreloadingOperation(forCurrentIndex index: Int) {
-        (1...4).forEach { shedulePreloadingOperationForImage(atIndex: index + $0) }
+        os_log(
+            "Shedule preloading for op[%d]", log: log, type: .debug, index)
+        (1...preloadedOperationCount - 2).forEach { shedulePreloadingOperationForImage(atIndex: index + $0) }
     }
 
     private func shedulePreloadingOperationForImage(atIndex indexToPreload: Int) {
@@ -64,6 +80,7 @@ class BookOperationSheduler {
             else { return }
         let operation = BookPageOperation(targetIndex: indexToPreload, bookData: bookData)
 
+        os_log("Preload op[%d]", log: log, type: .debug, indexToPreload)
         operation.addToQueue(queue) {
             self.addLoadedOperation(operation)
         }
@@ -75,10 +92,22 @@ class BookOperationSheduler {
             preloadedOperationsLock.unlock()
         }
         guard operation.isFinished else { assertionFailure(); return }
+        guard !preloadedOperations.contains(where: { operation.name == $0.name }) else { return }
         preloadedOperations.removeAll(where: { $0.name == operation.name })
         preloadedOperations.append(operation)
-        if preloadedOperations.count > 6 {
+        if preloadedOperations.count > preloadedOperationCount {
             preloadedOperations.remove(at: preloadedOperations.startIndex)
         }
+        os_log(
+            "Finished ops: %@",
+            log: log,
+            type: .debug,
+            preloadedOperations.reduce(into: "") { (result, op) in
+                if !result.isEmpty {
+                    result += " > "
+                }
+                result += String(op.targetIndex)
+            }
+        )
     }
 }
