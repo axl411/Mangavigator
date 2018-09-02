@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		970EAD93213AE98000AA0A42 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970EAD92213AE98000AA0A42 /* Styles.swift */; };
 		970EAD95213AEE7300AA0A42 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970EAD94213AEE7300AA0A42 /* Images.swift */; };
+		972D447A213C330800A6E928 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972D4479213C330800A6E928 /* main.swift */; };
+		972D447C213C3E5F00A6E928 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972D447B213C3E5F00A6E928 /* Bundle+Extension.swift */; };
+		972D447E213C3FFF00A6E928 /* AppDelegate+Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972D447D213C3FFF00A6E928 /* AppDelegate+Menus.swift */; };
 		97367062213581C80032CD76 /* BookControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97367061213581C80032CD76 /* BookControlsViewController.swift */; };
 		97367064213584D00032CD76 /* NSViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97367063213584D00032CD76 /* NSViewController+Extension.swift */; };
 		973C886621398F9800A42A18 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973C886521398F9800A42A18 /* UserDefaults+Extension.swift */; };
@@ -53,6 +56,9 @@
 /* Begin PBXFileReference section */
 		970EAD92213AE98000AA0A42 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		970EAD94213AEE7300AA0A42 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		972D4479213C330800A6E928 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		972D447B213C3E5F00A6E928 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
+		972D447D213C3FFF00A6E928 /* AppDelegate+Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menus.swift"; sourceTree = "<group>"; };
 		97367061213581C80032CD76 /* BookControlsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookControlsViewController.swift; sourceTree = "<group>"; };
 		97367063213584D00032CD76 /* NSViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Extension.swift"; sourceTree = "<group>"; };
 		973C886521398F9800A42A18 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
@@ -133,7 +139,9 @@
 		97405E9120FE2767008DF546 /* Mangavigator */ = {
 			isa = PBXGroup;
 			children = (
+				972D4479213C330800A6E928 /* main.swift */,
 				97405E9220FE2767008DF546 /* AppDelegate.swift */,
+				972D447D213C3FFF00A6E928 /* AppDelegate+Menus.swift */,
 				97405E9420FE2767008DF546 /* ViewController.swift */,
 				970EAD91213AE97400AA0A42 /* Resource */,
 				973C886421398F8400A42A18 /* Preferences */,
@@ -198,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				97DBB3E12123219C004DB117 /* Log.swift */,
+				972D447B213C3E5F00A6E928 /* Bundle+Extension.swift */,
 				97367063213584D00032CD76 /* NSViewController+Extension.swift */,
 			);
 			path = Util;
@@ -305,7 +314,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				97C99A202106145A00DA0D48 /* BookZipDocument.swift in Sources */,
+				972D447C213C3E5F00A6E928 /* Bundle+Extension.swift in Sources */,
 				97874A2E2103A79300DACCE8 /* BookItem.swift in Sources */,
+				972D447A213C330800A6E928 /* main.swift in Sources */,
 				97FBC4CB211F656300A8DC3F /* Entry+Extension.swift in Sources */,
 				97FBC4CD211F71EB00A8DC3F /* EventsView.swift in Sources */,
 				9754843B2128608A00DAEAD0 /* BookPageOperation.swift in Sources */,
@@ -317,6 +328,7 @@
 				97367064213584D00032CD76 /* NSViewController+Extension.swift in Sources */,
 				970EAD93213AE98000AA0A42 /* Styles.swift in Sources */,
 				97932DEA210CA5DC0077368B /* BookShelfViewController.swift in Sources */,
+				972D447E213C3FFF00A6E928 /* AppDelegate+Menus.swift in Sources */,
 				97550AB421109C9E003E93FF /* BookPresenterViewController.swift in Sources */,
 				973C886621398F9800A42A18 /* UserDefaults+Extension.swift in Sources */,
 				970EAD95213AEE7300AA0A42 /* Images.swift in Sources */,

@@ -8,15 +8,13 @@
 
 import Cocoa
 
-@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_: Notification) {
-
-        NSWindow.allowsAutomaticWindowTabbing = false
+        setupMenus()
     }
 
-    func applicationWillTerminate(_: Notification) {
-        // Insert code here to tear down your application
+    @objc private func quit() {
+        NSApp.terminate(self)
     }
 
 }
