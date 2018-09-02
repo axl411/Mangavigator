@@ -1,5 +1,5 @@
 //
-//  BookOperationSheduler.swift
+//  BookOperationScheduler.swift
 //  Mangavigator
 //
 //  Created by Gu Chao on 2018/08/18.
@@ -13,7 +13,7 @@ private let log = LogCategory.concurrency.log()
 
 private let preloadedOperationCount = 6
 
-class BookOperationSheduler {
+class BookOperationScheduler {
     private let queue: OperationQueue = {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
@@ -29,14 +29,14 @@ class BookOperationSheduler {
 
     func bookPage(forTargetIndex index: Int) -> BookPage {
         os_log("ℹ️ Finding bookPage for index %d", log: log, type: .debug, index)
-        let operation = sheduledOperation(forTargetIndex: index)
+        let operation = scheduledOperation(forTargetIndex: index)
         operation.waitUntilFinished()
         addLoadedOperation(operation)
-        shedulePreloadingOperation(forCurrentIndex: index)
+        schedulePreloadingOperation(forCurrentIndex: index)
         return operation.bookPage!
     }
 
-    private func sheduledOperation(forTargetIndex index: Int) -> BookPageOperation {
+    private func scheduledOperation(forTargetIndex index: Int) -> BookPageOperation {
         if let operation = findOperation(forTargetIndex: index) {
             os_log("✅ Found preloaded or running op[%d]", log: log, type: .debug, index)
             return operation
@@ -68,13 +68,13 @@ class BookOperationSheduler {
         }
     }
 
-    private func shedulePreloadingOperation(forCurrentIndex index: Int) {
+    private func schedulePreloadingOperation(forCurrentIndex index: Int) {
         os_log(
-            "Shedule preloading for op[%d]", log: log, type: .debug, index)
-        (1...preloadedOperationCount - 2).forEach { shedulePreloadingOperationForImage(atIndex: index + $0) }
+            "Schedule preloading for op[%d]", log: log, type: .debug, index)
+        (1...preloadedOperationCount - 2).forEach { schedulePreloadingOperationForImage(atIndex: index + $0) }
     }
 
-    private func shedulePreloadingOperationForImage(atIndex indexToPreload: Int) {
+    private func schedulePreloadingOperationForImage(atIndex indexToPreload: Int) {
         guard bookData.entries.startIndex..<bookData.entries.endIndex ~= indexToPreload,
             findOperation(forTargetIndex: indexToPreload) == nil
             else { return }

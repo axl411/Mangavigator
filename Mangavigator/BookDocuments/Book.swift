@@ -33,7 +33,7 @@ private let log = LogCategory.model.log()
 class Book: NSObject {
     @objc dynamic private(set) var mode = UserDefaults.bookLayoutMode()
     private let bookData: BookData
-    private lazy var operationSheduler = BookOperationSheduler(bookData: bookData)
+    private lazy var operationScheduler = BookOperationScheduler(bookData: bookData)
     @objc dynamic private(set) var currentIndex = 0
 
     init(fileURL: URL) throws {
@@ -71,7 +71,7 @@ class Book: NSObject {
     }
 
     private func pageAtIndex(_ index: Int) throws -> BookPage {
-        return operationSheduler.bookPage(forTargetIndex: index)
+        return operationScheduler.bookPage(forTargetIndex: index)
     }
 }
 
