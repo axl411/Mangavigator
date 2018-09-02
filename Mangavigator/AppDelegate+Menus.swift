@@ -15,6 +15,7 @@ extension AppDelegate {
 
         setupAppMenu()
         setupFileMenu()
+        setupViewMenu()
         // TODO: delete storyboard after finish all menu items
     }
 
@@ -45,7 +46,7 @@ extension AppDelegate {
             )
             m.keyEquivalentModifierMask = [.command, .option]
             return m
-            }())
+        }())
         appMenu.addItem(
             withTitle: "Show All",
             action: #selector(NSApplication.unhideAllApplications(_:)),
@@ -76,5 +77,22 @@ extension AppDelegate {
             action: #selector(NSWindow.performClose(_:)),
             keyEquivalent: "w"
         )
+    }
+
+    private func setupViewMenu() {
+        let mainViewMenuItem = NSMenuItem(title: "View", action: nil, keyEquivalent: "")
+        NSApp.mainMenu?.addItem(mainViewMenuItem)
+
+        let viewMenu = NSMenu(title: "View")
+        mainViewMenuItem.submenu = viewMenu
+        viewMenu.addItem({ () -> NSMenuItem in
+            let fullScreenItem = NSMenuItem(
+                title: "Enter Full Screen",
+                action: #selector(NSWindow.toggleFullScreen(_:)),
+                keyEquivalent: "f"
+            )
+            fullScreenItem.keyEquivalentModifierMask = [.command, .control]
+            return fullScreenItem
+        }())
     }
 }
