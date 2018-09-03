@@ -10,10 +10,17 @@ import Foundation
 import os
 
 private let log = LogCategory.concurrency.log()
-
+// TODO: optimize preloading: when going backward, should preload backward
 private let preloadedOperationCount = 6
 
 class BookOperationScheduler {
+
+    private enum OpFoundType: String {
+        case foundPreloaded = "✅"
+        case foundOnGoing = "▶️"
+        case notFound = "❌"
+    }
+
     private let queue: OperationQueue = {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
@@ -37,33 +44,32 @@ class BookOperationScheduler {
     }
 
     private func scheduledOperation(forTargetIndex index: Int) -> BookPageOperation {
-        if let operation = findOperation(forTargetIndex: index) {
-            os_log("✅ Found preloaded or running op[%d]", log: log, type: .debug, index)
-            return operation
+        let (op, type) = findOperation(forTargetIndex: index)
+        if let op = op {
+            os_log("%@ Found preloaded or running op[%d]", log: log, type: .debug, type.rawValue, index)
+            return op
         } else {
-            os_log("❌ op[%d] not found, creat new", log: log, type: .debug, index)
+            os_log("%@ op[%d] not found, creat new", log: log, type: .debug, type.rawValue, index)
             let newOperation = BookPageOperation(targetIndex: index, bookData: bookData)
             queue.addOperation(newOperation)
             return newOperation
         }
     }
 
-    private func findOperation(forTargetIndex index: Int) -> BookPageOperation? {
+    private func findOperation(forTargetIndex index: Int) -> (op: BookPageOperation?, type: OpFoundType) {
         preloadedOperationsLock.lock()
         defer {
             preloadedOperationsLock.unlock()
         }
         if let operation = preloadedOperations.first(where: { $0.name == bookData.operationName(forIndex: index)}) {
-            os_log("Found finished op[%d]", log: log, type: .debug, index)
-            return operation
+            return (op: operation, type: .foundPreloaded)
         } else {
             if let operation = queue.operations.first(
                 where: { $0.name == bookData.operationName(forIndex: index)}
             ) as? BookPageOperation {
-                os_log("Found running op[%d]", log: log, type: .debug, index)
-                return operation
+                return (op: operation, type: .foundOnGoing)
             } else {
-                return nil
+                return (op: nil, type: .notFound)
             }
         }
     }
@@ -76,7 +82,7 @@ class BookOperationScheduler {
 
     private func schedulePreloadingOperationForImage(atIndex indexToPreload: Int) {
         guard bookData.entries.startIndex..<bookData.entries.endIndex ~= indexToPreload,
-            findOperation(forTargetIndex: indexToPreload) == nil
+            findOperation(forTargetIndex: indexToPreload).type == .notFound
             else { return }
         let operation = BookPageOperation(targetIndex: indexToPreload, bookData: bookData)
 
