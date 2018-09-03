@@ -34,12 +34,12 @@ class BookOperationScheduler {
         self.bookData = bookData
     }
 
-    func bookPage(forTargetIndex index: Int) -> BookPage {
-        os_log("ℹ️ Finding bookPage for index %d", log: log, type: .debug, index)
-        let operation = scheduledOperation(forTargetIndex: index)
+    func process(_ intent: BookNaviIntent) -> BookPage {
+        os_log("ℹ️ Finding bookPage for index %d", log: log, type: .debug, intent.index)
+        let operation = scheduledOperation(forTargetIndex: intent.index)
         operation.waitUntilFinished()
         addLoadedOperation(operation)
-        schedulePreloadingOperation(forCurrentIndex: index)
+        schedulePreloadingOperations(for: intent)
         return operation.bookPage!
     }
 
@@ -74,13 +74,19 @@ class BookOperationScheduler {
         }
     }
 
-    private func schedulePreloadingOperation(forCurrentIndex index: Int) {
+    private func schedulePreloadingOperations(for intent: BookNaviIntent) {
+        guard intent.needsPreloading else { return }
         os_log(
-            "Schedule preloading for op[%d]", log: log, type: .debug, index)
-        (1...preloadedOperationCount - 2).forEach { schedulePreloadingOperationForImage(atIndex: index + $0) }
+            "Schedule preloading for op[%d]", log: log, type: .debug, intent.index)
+        if intent.isGoingForward {
+            (1...preloadedOperationCount - 2).forEach { schedulePreloadingForImage(atIndex: intent.index + $0) }
+        } else {
+            [-1, -2].forEach { schedulePreloadingForImage(atIndex: intent.index + $0) }
+        }
     }
 
-    private func schedulePreloadingOperationForImage(atIndex indexToPreload: Int) {
+    /// `indexToPreload` doesn't have to be valid, it will be checked
+    private func schedulePreloadingForImage(atIndex indexToPreload: Int) {
         guard bookData.entries.startIndex..<bookData.entries.endIndex ~= indexToPreload,
             findOperation(forTargetIndex: indexToPreload).type == .notFound
             else { return }

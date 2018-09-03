@@ -71,13 +71,18 @@ class BookPresenterViewController: NSViewController {
 
         bookIndexObserving = book.observe(
             \.currentIndex,
-            options: [.initial, .new]
-        ) { [weak self] (_, _) in
-            guard let `self` = self else { return }
+            options: [.initial, .new, .old]
+        ) { [weak self] (_, change) in
+            guard
+                let `self` = self,
+                let newValue = change.newValue
+            else { return }
             do {
-                if let currentPage = try self.book.currentPage() {
-                    self.setup(imageView: self.mainImageView, with: currentPage)
-                }
+                let isGoingForward = change.oldValue.flatMap { newValue > $0 } ?? true
+                let intent = try self.book.intent(targetIndex: .current, isGoingForward: isGoingForward)
+                let currentPage = try self.book.page(for: intent)
+                self.setup(imageView: self.mainImageView, with: currentPage)
+
                 if self.book.mode == .dualPage {
                     try self.setupSubImageView()
                 }

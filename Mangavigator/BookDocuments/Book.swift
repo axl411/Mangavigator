@@ -45,13 +45,17 @@ class Book: NSObject {
         UserDefaults.setBookLayoutMode(mode)
     }
 
-    func currentPage() throws -> BookPage? {
-        return try pageAtIndex(currentIndex)
+    func page(for intent: BookNaviIntent) throws -> BookPage {
+        return operationScheduler.process(intent)
     }
 
     func peekNextPage() throws -> BookPage? {
         guard currentIndex < bookData.entries.endIndex - 1 else { return nil }
-        return try pageAtIndex(currentIndex + 1)
+        return try page(for: intent(
+            targetIndex: .specific(currentIndex + 1),
+            isGoingForward: true,
+            needsPreloading: false
+        ))
     }
 
     func goBackward() {
@@ -70,13 +74,62 @@ class Book: NSObject {
         os_log("goForward: %d", log: log, currentIndex)
     }
 
-    private func pageAtIndex(_ index: Int) throws -> BookPage {
-        return operationScheduler.bookPage(forTargetIndex: index)
+    func isValidIndex(_ index: Int) -> Bool {
+        return (bookData.entries.startIndex..<bookData.entries.endIndex).contains(index)
     }
 }
 
 extension Book {
     var name: String {
         return bookData.archive.url.lastPathComponent
+    }
+}
+
+extension Book {
+    func intent(
+        targetIndex: BookNaviIntent.TargetIndex,
+        isGoingForward: Bool,
+        needsPreloading: Bool = true
+    ) throws -> BookNaviIntent {
+        return try BookNaviIntent(
+            book: self,
+            targetIndex: targetIndex,
+            isGoingForward: isGoingForward,
+            needsPreloading: needsPreloading
+        )
+    }
+}
+
+struct BookNaviIntent {
+
+    enum TargetIndex {
+        case current
+        case specific(Int)
+    }
+
+    enum Error: Swift.Error {
+        case invalidIndex(Int)
+    }
+
+    let book: Book
+    private let targetIndex: TargetIndex
+    let isGoingForward: Bool
+    let needsPreloading: Bool
+
+    /// this index is guaranteed to be valid
+    var index: Int {
+        switch targetIndex {
+        case .current: return book.currentIndex
+        case .specific(let idx): return idx
+        }
+    }
+
+    fileprivate init(book: Book, targetIndex: TargetIndex, isGoingForward: Bool, needsPreloading: Bool) throws {
+        self.book = book
+        self.targetIndex = targetIndex
+        self.isGoingForward = isGoingForward
+        self.needsPreloading = needsPreloading
+
+        guard book.isValidIndex(index) else { throw Error.invalidIndex(index) }
     }
 }
