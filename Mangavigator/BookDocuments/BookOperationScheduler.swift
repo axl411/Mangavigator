@@ -10,8 +10,8 @@ import Foundation
 import os
 
 private let log = LogCategory.concurrency.log()
-// TODO: optimize preloading: when going backward, should preload backward
-private let preloadedOperationCount = 6
+private let preloadedForwardOpCount = 5 // this includes the op for the current book index
+private let preloadedBackwardOpCount = 2
 
 class BookOperationScheduler {
 
@@ -38,7 +38,6 @@ class BookOperationScheduler {
         os_log("ℹ️ Finding bookPage for index %d", log: log, type: .debug, intent.index)
         let operation = scheduledOperation(forTargetIndex: intent.index)
         operation.waitUntilFinished()
-        addLoadedOperation(operation)
         schedulePreloadingOperations(for: intent)
         return operation.bookPage!
     }
@@ -79,14 +78,18 @@ class BookOperationScheduler {
         os_log(
             "Schedule preloading for op[%d]", log: log, type: .debug, intent.index)
         if intent.isGoingForward {
-            (1...preloadedOperationCount - 2).forEach { schedulePreloadingForImage(atIndex: intent.index + $0) }
+            (1...preloadedForwardOpCount).forEach {
+                schedulePreloadingForImage(atIndex: intent.index + $0, intent: intent)
+            }
         } else {
-            [-1, -2].forEach { schedulePreloadingForImage(atIndex: intent.index + $0) }
+            (1...preloadedBackwardOpCount).forEach {
+                schedulePreloadingForImage(atIndex: intent.index - $0, intent: intent)
+            }
         }
     }
 
     /// `indexToPreload` doesn't have to be valid, it will be checked
-    private func schedulePreloadingForImage(atIndex indexToPreload: Int) {
+    private func schedulePreloadingForImage(atIndex indexToPreload: Int, intent: BookNaviIntent) {
         guard bookData.entries.startIndex..<bookData.entries.endIndex ~= indexToPreload,
             findOperation(forTargetIndex: indexToPreload).type == .notFound
             else { return }
@@ -94,22 +97,30 @@ class BookOperationScheduler {
 
         os_log("Preload op[%d]", log: log, type: .debug, indexToPreload)
         operation.addToQueue(queue) {
-            self.addLoadedOperation(operation)
+            self.addLoadedOperation(operation, currentBookIndex: intent.index)
         }
     }
-
-    private func addLoadedOperation(_ operation: BookPageOperation) {
+// TODO: add recents in "File" menu
+    private func addLoadedOperation(_ operation: BookPageOperation, currentBookIndex: Int) {
         preloadedOperationsLock.lock()
         defer {
             preloadedOperationsLock.unlock()
         }
         guard operation.isFinished else { assertionFailure(); return }
         guard !preloadedOperations.contains(where: { operation.name == $0.name }) else { return }
-        preloadedOperations.removeAll(where: { $0.name == operation.name })
-        preloadedOperations.append(operation)
-        if preloadedOperations.count > preloadedOperationCount {
-            preloadedOperations.remove(at: preloadedOperations.startIndex)
+
+        if let currentIndex = preloadedOperations.firstIndex(where: { $0.targetIndex == currentBookIndex }) {
+            preloadedOperations.append(operation)
+            preloadedOperations.sort { $0.targetIndex < $1.targetIndex }
+            let lowerBound = max(preloadedOperations.startIndex, currentIndex - preloadedBackwardOpCount)
+            print("lower: \(lowerBound)")
+            let upperBound = min(preloadedOperations.endIndex, currentIndex + preloadedForwardOpCount)
+            print("upper: \(upperBound)")
+            preloadedOperations = Array(preloadedOperations[lowerBound..<upperBound])
+        } else {
+            preloadedOperations.append(operation)
         }
+
         os_log(
             "Finished ops: %@",
             log: log,
@@ -118,7 +129,7 @@ class BookOperationScheduler {
                 if !result.isEmpty {
                     result += " > "
                 }
-                result += String(op.targetIndex)
+                result += op.targetIndex == currentBookIndex ? "[\(currentBookIndex)]" : "\(op.targetIndex)"
             }
         )
     }
