@@ -110,7 +110,8 @@ class BookPresenterViewController: NSViewController {
         }
 
         addChildViewController(bookControlsViewController, childViewLayout: .fill)
-        bookControlsViewController.view.isHidden = true
+
+        autoHideControls()
     }
 
     private func setupSubImageView() throws {
@@ -159,6 +160,15 @@ class BookPresenterViewController: NSViewController {
         }
     }
 
+    private func autoHideControls() {
+        if bookControlsViewController.view.isHidden {
+            bookControlsViewController.view.animator().isHidden = false
+        } else {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControls), object: nil)
+        }
+        perform(#selector(hideControls), with: nil, afterDelay: 1.5)
+    }
+
     @objc private func hideControls() {
         bookControlsViewController.view.animator().isHidden = true
     }
@@ -171,12 +181,7 @@ class BookPresenterViewController: NSViewController {
 
 extension BookPresenterViewController: EventsViewDelegate {
     func mouseMoved() {
-        if bookControlsViewController.view.isHidden {
-            bookControlsViewController.view.animator().isHidden = false
-        } else {
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControls), object: nil)
-        }
-        perform(#selector(hideControls), with: nil, afterDelay: 1.5)
+        autoHideControls()
     }
 
     func rightPressed() {
