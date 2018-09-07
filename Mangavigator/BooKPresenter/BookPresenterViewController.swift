@@ -111,7 +111,7 @@ class BookPresenterViewController: NSViewController {
 
         addChildViewController(bookControlsViewController, childViewLayout: .fill)
 
-        autoHideControls()
+        showAndAutoHideControls()
     }
 
     private func setupSubImageView() throws {
@@ -160,7 +160,7 @@ class BookPresenterViewController: NSViewController {
         }
     }
 
-    private func autoHideControls() {
+    private func showAndAutoHideControls() {
         if bookControlsViewController.view.isHidden {
             bookControlsViewController.view.animator().isHidden = false
         } else {
@@ -181,7 +181,13 @@ class BookPresenterViewController: NSViewController {
 
 extension BookPresenterViewController: EventsViewDelegate {
     func mouseMoved() {
-        autoHideControls()
+        showAndAutoHideControls()
+    }
+
+    func mouseDown() {
+        NSCursor.setHiddenUntilMouseMoves(true)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControls), object: nil)
+        perform(#selector(hideControls))
     }
 
     func rightPressed() {

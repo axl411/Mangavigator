@@ -14,6 +14,7 @@ protocol EventsViewDelegate: class {
     func spacePressed()
     func cmdAndDPressed()
     func mouseMoved()
+    func mouseDown()
 }
 
 class EventsView: NSView {
@@ -56,5 +57,9 @@ class EventsView: NSView {
 
     override func mouseMoved(with event: NSEvent) {
         delegate?.mouseMoved()
+    }
+
+    override func mouseDown(with event: NSEvent) {
+        delegate?.mouseDown()
     }
 }
