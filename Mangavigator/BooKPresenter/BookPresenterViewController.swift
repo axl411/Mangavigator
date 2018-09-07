@@ -90,7 +90,8 @@ class BookPresenterViewController: NSViewController {
                 os_log("%@", log: log, type: .error, error.localizedDescription)
             }
         }
-
+        // TODO: automatically decide book layout (single/dual) based on image size
+        // TODO: automatically hide controls upon full screen: didEnterFullScreenNotification
         bookModeObserving = book.observe(
             \.mode,
             options: [.initial, .new]
@@ -111,7 +112,7 @@ class BookPresenterViewController: NSViewController {
 
         addChildViewController(bookControlsViewController, childViewLayout: .fill)
 
-        showAndAutoHideControls()
+        hideControlsAndCursor()
     }
 
     private func setupSubImageView() throws {
@@ -177,6 +178,12 @@ class BookPresenterViewController: NSViewController {
         direction = direction.toggled()
         UserDefaults.setBookDirection(direction)
     }
+
+    fileprivate func hideControlsAndCursor() {
+        NSCursor.setHiddenUntilMouseMoves(true)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControls), object: nil)
+        perform(#selector(hideControls))
+    }
 }
 
 extension BookPresenterViewController: EventsViewDelegate {
@@ -185,9 +192,7 @@ extension BookPresenterViewController: EventsViewDelegate {
     }
 
     func mouseDown() {
-        NSCursor.setHiddenUntilMouseMoves(true)
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControls), object: nil)
-        perform(#selector(hideControls))
+        hideControlsAndCursor()
     }
 
     func rightPressed() {
