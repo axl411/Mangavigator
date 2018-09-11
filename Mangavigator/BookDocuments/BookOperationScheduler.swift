@@ -50,7 +50,9 @@ class BookOperationScheduler {
         } else {
             os_log("%@ op[%d] not found, creat new", log: log, type: .debug, type.rawValue, index)
             let newOperation = BookPageOperation(targetIndex: index, bookData: bookData)
-            queue.addOperation(newOperation)
+            newOperation.addToQueue(queue) {
+                self.addLoadedOperation(newOperation, currentBookIndex: index)
+            }
             return newOperation
         }
     }
@@ -109,16 +111,15 @@ class BookOperationScheduler {
         guard operation.isFinished else { assertionFailure(); return }
         guard !preloadedOperations.contains(where: { operation.name == $0.name }) else { return }
 
+        preloadedOperations.append(operation)
+        preloadedOperations.sort { $0.targetIndex < $1.targetIndex }
+
         if let currentIndex = preloadedOperations.firstIndex(where: { $0.targetIndex == currentBookIndex }) {
-            preloadedOperations.append(operation)
-            preloadedOperations.sort { $0.targetIndex < $1.targetIndex }
             let lowerBound = max(preloadedOperations.startIndex, currentIndex - preloadedBackwardOpCount)
             print("lower: \(lowerBound)")
             let upperBound = min(preloadedOperations.endIndex, currentIndex + preloadedForwardOpCount)
             print("upper: \(upperBound)")
             preloadedOperations = Array(preloadedOperations[lowerBound..<upperBound])
-        } else {
-            preloadedOperations.append(operation)
         }
 
         os_log(

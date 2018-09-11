@@ -22,8 +22,10 @@ class BookPageOperation: BlockOperation {
             let entry = bookData.entries[targetIndex]
 
             var imageData = Data()
-            try? _ = bookData.archive.extract(entry) { data in
-                imageData.append(data)
+            bookData.performAndWait { archive in
+                try? _ = archive.extract(entry) { data in
+                    imageData.append(data)
+                }
             }
             if let image = NSImage(data: imageData) {
                 self.bookPage = .image(image)

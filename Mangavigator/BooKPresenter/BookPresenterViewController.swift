@@ -112,6 +112,8 @@ class BookPresenterViewController: NSViewController {
 
         addChildViewController(bookControlsViewController, childViewLayout: .fill)
 
+        adjustImageViewFramesAndAlignments()
+
         hideControlsAndCursor()
     }
 

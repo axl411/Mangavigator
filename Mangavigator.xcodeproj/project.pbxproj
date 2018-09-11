@@ -24,6 +24,8 @@
 		9754843B2128608A00DAEAD0 /* BookPageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9754843A2128608A00DAEAD0 /* BookPageOperation.swift */; };
 		9754843D212863AF00DAEAD0 /* BookData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9754843C212863AF00DAEAD0 /* BookData.swift */; };
 		97550AB421109C9E003E93FF /* BookPresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97550AB321109C9E003E93FF /* BookPresenterViewController.swift */; };
+		97671FBE2145536200B19B79 /* PreviewableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97671FBD2145536200B19B79 /* PreviewableSlider.swift */; };
+		97671FC02145681100B19B79 /* NSImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97671FBF2145681100B19B79 /* NSImage+Extension.swift */; };
 		977902FF210C4CD6009458F8 /* BookContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977902FE210C4CD6009458F8 /* BookContainerViewController.swift */; };
 		977E5FD6211891EB0011BB1A /* BookPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E5FD5211891EB0011BB1A /* BookPage.swift */; };
 		97874A2E2103A79300DACCE8 /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97874A2D2103A79300DACCE8 /* BookItem.swift */; };
@@ -74,6 +76,8 @@
 		9754843A2128608A00DAEAD0 /* BookPageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPageOperation.swift; sourceTree = "<group>"; };
 		9754843C212863AF00DAEAD0 /* BookData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookData.swift; sourceTree = "<group>"; };
 		97550AB321109C9E003E93FF /* BookPresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPresenterViewController.swift; sourceTree = "<group>"; };
+		97671FBD2145536200B19B79 /* PreviewableSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewableSlider.swift; sourceTree = "<group>"; };
+		97671FBF2145681100B19B79 /* NSImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Extension.swift"; sourceTree = "<group>"; };
 		977740A32102C5B80075928F /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		977902FE210C4CD6009458F8 /* BookContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookContainerViewController.swift; sourceTree = "<group>"; };
 		977E5FD5211891EB0011BB1A /* BookPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPage.swift; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 			children = (
 				97550AB321109C9E003E93FF /* BookPresenterViewController.swift */,
 				97367061213581C80032CD76 /* BookControlsViewController.swift */,
+				97671FBD2145536200B19B79 /* PreviewableSlider.swift */,
 				97FBC4CC211F71EB00A8DC3F /* EventsView.swift */,
 			);
 			path = BooKPresenter;
@@ -208,6 +213,7 @@
 				97DBB3E12123219C004DB117 /* Log.swift */,
 				972D447B213C3E5F00A6E928 /* Bundle+Extension.swift */,
 				97367063213584D00032CD76 /* NSViewController+Extension.swift */,
+				97671FBF2145681100B19B79 /* NSImage+Extension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -313,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97671FBE2145536200B19B79 /* PreviewableSlider.swift in Sources */,
 				97C99A202106145A00DA0D48 /* BookZipDocument.swift in Sources */,
 				972D447C213C3E5F00A6E928 /* Bundle+Extension.swift in Sources */,
 				97874A2E2103A79300DACCE8 /* BookItem.swift in Sources */,
@@ -322,6 +329,7 @@
 				9754843B2128608A00DAEAD0 /* BookPageOperation.swift in Sources */,
 				977902FF210C4CD6009458F8 /* BookContainerViewController.swift in Sources */,
 				97405E9520FE2767008DF546 /* ViewController.swift in Sources */,
+				97671FC02145681100B19B79 /* NSImage+Extension.swift in Sources */,
 				977E5FD6211891EB0011BB1A /* BookPage.swift in Sources */,
 				97DBB3E22123219C004DB117 /* Log.swift in Sources */,
 				97367062213581C80032CD76 /* BookControlsViewController.swift in Sources */,

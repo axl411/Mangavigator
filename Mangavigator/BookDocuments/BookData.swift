@@ -12,6 +12,7 @@ import ZIPFoundation
 class BookData {
     let archive: Archive
     let entries: [Entry]
+    private let queue = DispatchQueue(label: "axl411.com.BookData")
 
     init(fileURL: URL) throws {
         guard let archive = Archive(url: fileURL, accessMode: .read) else { throw BookError.failedAccessingArchive }
@@ -24,5 +25,17 @@ class BookData {
 
     subscript(index: Int) -> Entry {
         return entries[index]
+    }
+
+    func perform(_ work: @escaping (Archive) -> Void) {
+        queue.async {
+            work(self.archive)
+        }
+    }
+
+    func performAndWait(_ work: @escaping (Archive) -> Void) {
+        queue.sync {
+            work(self.archive)
+        }
     }
 }

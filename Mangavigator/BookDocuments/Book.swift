@@ -74,14 +74,45 @@ class Book: NSObject {
         os_log("goForward: %d", log: log, currentIndex)
     }
 
+    func goToIndex(_ index: Int) {
+        guard bookData.entries.startIndex..<bookData.entries.endIndex ~= index else { return }
+        currentIndex = index
+        os_log("goToIndex: %d", log: log, currentIndex)
+    }
+
     func isValidIndex(_ index: Int) -> Bool {
         return (bookData.entries.startIndex..<bookData.entries.endIndex).contains(index)
+    }
+
+    func getPreviewPage(forIndex index: Int, size: CGSize) -> BookPage {
+        let entry = bookData.entries[index]
+
+        var imageData = Data()
+        bookData.performAndWait { archive in
+            try? _ = archive.extract(entry) { data in
+                imageData.append(data)
+            }
+        }
+        if let image = NSImage(data: imageData) {
+            return .image(image.resized(to: size))
+        } else {
+            return .nonImage(fileName: entry.fileName)
+        }
     }
 }
 
 extension Book {
     var name: String {
         return bookData.archive.url.lastPathComponent
+    }
+
+    func index(forPercentage percentage: CGFloat) -> Int {
+        return Int((percentage * CGFloat(bookData.entries.count - 1)).rounded(.toNearestOrAwayFromZero))
+    }
+
+    func percentage(forIndex index: Int) -> CGFloat {
+        let rawPercentage = 1000 * CGFloat(index) / CGFloat(bookData.entries.count - 1) / 1000
+        return max(0, min(1, rawPercentage))
     }
 }
 
