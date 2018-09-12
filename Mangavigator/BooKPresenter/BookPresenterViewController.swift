@@ -36,7 +36,11 @@ class BookPresenterViewController: NSViewController {
     private var bookIndexObserving: NSKeyValueObservation?
     private var bookModeObserving: NSKeyValueObservation?
 
-    private lazy var bookControlsViewController = BookControlsViewController(book: book)
+    private lazy var bookControlsViewController: BookControlsViewController = {
+        let controller = BookControlsViewController(book: book)
+        controller.delegate = self
+        return controller
+    }()
 
     private let mainImageView: NSImageView = imageViewMaker()
     private let subImageView: NSImageView = imageViewMaker()
@@ -167,9 +171,13 @@ class BookPresenterViewController: NSViewController {
         if bookControlsViewController.view.isHidden {
             bookControlsViewController.view.animator().isHidden = false
         } else {
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControls), object: nil)
+            cancelAutoHidingControls()
         }
         perform(#selector(hideControls), with: nil, afterDelay: 1.5)
+    }
+
+    private func cancelAutoHidingControls() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControls), object: nil)
     }
 
     @objc private func hideControls() {
@@ -217,5 +225,15 @@ extension BookPresenterViewController: EventsViewDelegate {
 
     func cmdAndDPressed() {
         toggleDirection()
+    }
+}
+
+extension BookPresenterViewController: BookControlsViewControllerDelegate {
+    func mouseEntered() {
+        cancelAutoHidingControls()
+    }
+
+    func mouseLeft() {
+        showAndAutoHideControls()
     }
 }

@@ -10,6 +10,11 @@ import Cocoa
 
 private let nameLabelInset: CGFloat = 40
 
+protocol BookControlsViewControllerDelegate: class {
+    func mouseEntered()
+    func mouseLeft()
+}
+
 class BookControlsViewController: NSViewController {
     static let viewBackgroundAlpha: CGFloat = 0.6
 
@@ -38,6 +43,7 @@ class BookControlsViewController: NSViewController {
         slider.isVertical = true
         return slider
     }()
+    weak var delegate: BookControlsViewControllerDelegate?
 
     init(book: Book) {
         self.book = book
@@ -86,7 +92,6 @@ class BookControlsViewController: NSViewController {
         }
     }
 // TODO: add minimum size for window
-    // TODO: do not auto hide controls
     override func viewDidLayout() {
         super.viewDidLayout()
         textField.preferredMaxLayoutWidth = view.frame.width - nameLabelInset * 2
@@ -94,6 +99,14 @@ class BookControlsViewController: NSViewController {
 }
 
 extension BookControlsViewController: PreviewableSliderDelegate {
+    func mouseEntered() {
+        delegate?.mouseEntered()
+    }
+
+    func mouseLeft() {
+        delegate?.mouseLeft()
+    }
+
     func didSelectPercentage(_ percentage: CGFloat) {
         book.goToIndex(book.index(forPercentage: percentage))
         // TODO: BUG: when dragging the slider then release, the percentage still reflect the position where the mouse is pressed down

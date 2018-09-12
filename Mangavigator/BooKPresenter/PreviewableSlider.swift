@@ -11,6 +11,8 @@ import Cocoa
 protocol PreviewableSliderDelegate: class {
     func previewImage(requestingPercentage: CGFloat, requestedPercentage: CGFloat?) -> NSImage?
     func didSelectPercentage(_ percentage: CGFloat)
+    func mouseEntered()
+    func mouseLeft()
 }
 
 class PreviewableSlider: NSSlider {
@@ -68,18 +70,18 @@ class PreviewableSlider: NSSlider {
 
     override func mouseEntered(with event: NSEvent) {
         previewImageView.isHidden = false
+        delegate?.mouseEntered()
     }
 
     override func mouseExited(with event: NSEvent) {
         previewImageView.isHidden = true
+        delegate?.mouseLeft()
     }
 
     override func mouseMoved(with event: NSEvent) {
         guard isHidden == false else { return }
         let y = convert(event.locationInWindow, from: nil).y
         let percentage = self.percentage(forYPosition: y)
-
-
 
         previewImageView.isHidden = false
         let previewX: CGFloat = -PreviewableSlider.previewSize.width
