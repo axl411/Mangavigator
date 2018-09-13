@@ -91,7 +91,7 @@ class BookControlsViewController: NSViewController {
             self.slider.doubleValue = Double(self.book.percentage(forIndex: newValue))
         }
     }
-// TODO: add minimum size for window
+
     override func viewDidLayout() {
         super.viewDidLayout()
         textField.preferredMaxLayoutWidth = view.frame.width - nameLabelInset * 2

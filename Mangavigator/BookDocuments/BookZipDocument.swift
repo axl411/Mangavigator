@@ -29,7 +29,12 @@ class BookZipDocument: NSDocument {
             newWindow.titleVisibility = NSWindow.TitleVisibility.hidden
             newWindow.titlebarAppearsTransparent = true
             newWindow.styleMask = [NSWindow.StyleMask.fullSizeContentView, newWindow.styleMask]
-            newWindow.setFrame(NSScreen.main!.frame, display: true)
+            let mainScreenFrame = NSScreen.main!.frame
+            newWindow.minSize = NSSize(
+                width: mainScreenFrame.width / 2,
+                height: mainScreenFrame.height / 2
+            )
+            newWindow.setFrame(mainScreenFrame, display: true)
             addWindowController(windowController)
         } catch {
             assertionFailure(error.localizedDescription)
