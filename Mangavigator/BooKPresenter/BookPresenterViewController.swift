@@ -35,6 +35,7 @@ class BookPresenterViewController: NSViewController {
     private let book: Book
     private var bookIndexObserving: NSKeyValueObservation?
     private var bookModeObserving: NSKeyValueObservation?
+    private var notificationListenser: NSObjectProtocol?
 
     private lazy var bookControlsViewController: BookControlsViewController = {
         let controller = BookControlsViewController(book: book)
@@ -94,8 +95,7 @@ class BookPresenterViewController: NSViewController {
                 os_log("%@", log: log, type: .error, error.localizedDescription)
             }
         }
-        // TODO: automatically decide book layout (single/dual) based on image size
-        // TODO: automatically hide controls upon full screen: didEnterFullScreenNotification
+
         bookModeObserving = book.observe(
             \.mode,
             options: [.initial, .new]
@@ -112,6 +112,14 @@ class BookPresenterViewController: NSViewController {
                 os_log("%@", log: log, type: .error, error.localizedDescription)
             }
             self.adjustImageViewFramesAndAlignments()
+        }
+
+        notificationListenser = NotificationCenter.default.addObserver(
+            forName: NSWindow.didEnterFullScreenNotification,
+            object: view.window,
+            queue: nil
+        ) { [unowned self] (_) in
+            self.hideControls()
         }
 
         addChildViewController(bookControlsViewController, childViewLayout: .fill)
@@ -193,6 +201,12 @@ class BookPresenterViewController: NSViewController {
         NSCursor.setHiddenUntilMouseMoves(true)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideControls), object: nil)
         perform(#selector(hideControls))
+    }
+
+    deinit {
+        if let notifiticationListener = notificationListenser {
+            NotificationCenter.default.removeObserver(notificationListenser)
+        }
     }
 }
 
