@@ -238,6 +238,7 @@ extension BookPresenterViewController: EventsViewDelegate {
     }
 
     func cmdAndDPressed() {
+        // TODO: add ui / add to menu / finish this feature
         toggleDirection()
     }
 }
