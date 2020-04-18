@@ -233,7 +233,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97405E9F20FE2768008DF546 /* Build configuration list for PBXNativeTarget "Mangavigator" */;
 			buildPhases = (
-				97EA2332212474CB003125C2 /* Run Script */,
 				97405E8B20FE2767008DF546 /* Sources */,
 				97405E8C20FE2767008DF546 /* Frameworks */,
 				97405E8D20FE2767008DF546 /* Resources */,
@@ -292,27 +291,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		97EA2332212474CB003125C2 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "mint run swiftlint\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		97405E8B20FE2767008DF546 /* Sources */ = {

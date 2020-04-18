@@ -1,2 +1,9 @@
 # Mangavigator
-Yet another manga reader as hobby, hopefully it'll survive.
+Yet another manga reader.
+
+## Dev
+```
+# first time
+brew install carthage
+carthage bootstrap
+```
