@@ -10,7 +10,7 @@ import Cocoa
 
 private let nameLabelInset: CGFloat = 40
 
-protocol BookControlsViewControllerDelegate: class {
+protocol BookControlsViewControllerDelegate: AnyObject {
     func mouseEntered()
     func mouseLeft()
 }

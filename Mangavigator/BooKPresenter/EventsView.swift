@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol EventsViewDelegate: class {
+protocol EventsViewDelegate: AnyObject {
     func rightPressed()
     func leftPressed()
     func spacePressed()

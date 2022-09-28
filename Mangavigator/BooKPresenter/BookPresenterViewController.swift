@@ -204,7 +204,7 @@ class BookPresenterViewController: NSViewController {
     }
 
     deinit {
-        if let notifiticationListener = notificationListenser {
+        if let notificationListenser = notificationListenser {
             NotificationCenter.default.removeObserver(notificationListenser)
         }
     }

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol PreviewableSliderDelegate: class {
+protocol PreviewableSliderDelegate: AnyObject {
     func previewImage(requestingPercentage: CGFloat, requestedPercentage: CGFloat?) -> NSImage?
     func didSelectPercentage(_ percentage: CGFloat)
     func mouseEntered()

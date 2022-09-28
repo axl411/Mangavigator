@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1380AC6628E4A0AF00C43ACB /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 1380AC6528E4A0AF00C43ACB /* ZIPFoundation */; };
 		970EAD93213AE98000AA0A42 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970EAD92213AE98000AA0A42 /* Styles.swift */; };
 		970EAD95213AEE7300AA0A42 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970EAD94213AEE7300AA0A42 /* Images.swift */; };
 		972D447A213C330800A6E928 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972D4479213C330800A6E928 /* main.swift */; };
@@ -33,27 +34,11 @@
 		97932DEA210CA5DC0077368B /* BookShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97932DE8210CA5DC0077368B /* BookShelfViewController.swift */; };
 		97C99A202106145A00DA0D48 /* BookZipDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C99A1F2106145A00DA0D48 /* BookZipDocument.swift */; };
 		97DBB3E22123219C004DB117 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DBB3E12123219C004DB117 /* Log.swift */; };
-		97EA232E212473C2003125C2 /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EA232D212473C2003125C2 /* ZIPFoundation.framework */; };
-		97EA2330212473CE003125C2 /* ZIPFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 97EA232D212473C2003125C2 /* ZIPFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		97FBC4CB211F656300A8DC3F /* Entry+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FBC4CA211F656300A8DC3F /* Entry+Extension.swift */; };
 		97FBC4CD211F71EB00A8DC3F /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FBC4CC211F71EB00A8DC3F /* EventsView.swift */; };
 		97FD321E21134E2E00EE4978 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD321D21134E2E00EE4978 /* Book.swift */; };
 		97FD322021134ED000EE4978 /* BookError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD321F21134ED000EE4978 /* BookError.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		97EA2331212473CE003125C2 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				97EA2330212473CE003125C2 /* ZIPFoundation.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		970EAD92213AE98000AA0A42 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
@@ -86,7 +71,6 @@
 		97932DE8210CA5DC0077368B /* BookShelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewController.swift; sourceTree = "<group>"; };
 		97C99A1F2106145A00DA0D48 /* BookZipDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookZipDocument.swift; sourceTree = "<group>"; };
 		97DBB3E12123219C004DB117 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		97EA232D212473C2003125C2 /* ZIPFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ZIPFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97FBC4CA211F656300A8DC3F /* Entry+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+Extension.swift"; sourceTree = "<group>"; };
 		97FBC4CC211F71EB00A8DC3F /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
 		97FD321D21134E2E00EE4978 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -98,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97EA232E212473C2003125C2 /* ZIPFoundation.framework in Frameworks */,
+				1380AC6628E4A0AF00C43ACB /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +112,6 @@
 				977740A32102C5B80075928F /* MyPlayground.playground */,
 				97405E9120FE2767008DF546 /* Mangavigator */,
 				97405E9020FE2767008DF546 /* Products */,
-				97EA232C212473C2003125C2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -218,14 +201,6 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		97EA232C212473C2003125C2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				97EA232D212473C2003125C2 /* ZIPFoundation.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -236,13 +211,15 @@
 				97405E8B20FE2767008DF546 /* Sources */,
 				97405E8C20FE2767008DF546 /* Frameworks */,
 				97405E8D20FE2767008DF546 /* Resources */,
-				97EA2331212473CE003125C2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Mangavigator;
+			packageProductDependencies = (
+				1380AC6528E4A0AF00C43ACB /* ZIPFoundation */,
+			);
 			productName = Mangavigator;
 			productReference = 97405E8F20FE2767008DF546 /* Mangavigator.app */;
 			productType = "com.apple.product-type.application";
@@ -254,11 +231,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Gu Chao";
 				TargetAttributes = {
 					97405E8E20FE2767008DF546 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = "";
 					};
 				};
 			};
@@ -271,6 +249,9 @@
 				Base,
 			);
 			mainGroup = 97405E8620FE2767008DF546;
+			packageReferences = (
+				1380AC6428E4A0AF00C43ACB /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
 			productRefGroup = 97405E9020FE2767008DF546 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -368,6 +349,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -376,6 +358,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -429,6 +412,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -437,6 +421,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -462,7 +447,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Mangavigator/Mangavigator.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_FILE = Mangavigator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -470,7 +457,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.axl411.Mangavigator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -479,7 +466,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Mangavigator/Mangavigator.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_FILE = Mangavigator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -487,7 +476,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.axl411.Mangavigator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -513,6 +502,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1380AC6428E4A0AF00C43ACB /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1380AC6528E4A0AF00C43ACB /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1380AC6428E4A0AF00C43ACB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 97405E8720FE2767008DF546 /* Project object */;
 }
